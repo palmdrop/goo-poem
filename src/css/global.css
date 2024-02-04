@@ -1,0 +1,41 @@
+#app {
+  background-color: var(--bg);
+  color: var(--fg);
+
+  height: 100vh;
+
+  box-sizing: border-box;
+}
+
+main {
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  overflow: hidden;
+}
+
+#poem {
+  padding: 1em;
+  margin: 1em;
+
+  font-size: 1.2em;
+  font-style: italic;
+}
+
+#poem::after, #poem::before {
+  content: '"';
+  font-style: italic;
+}
+
+#input-parent {
+
+}
+
+#input-parent input {
+  border: 1px solid var(--fg);
+  padding: 1em;
+}
