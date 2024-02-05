@@ -1,7 +1,7 @@
 import './css/reset.css'
 import './css/theme.css'
 import './css/global.css'
-import { APP_ID, INPUT_ID, POEM_ID } from './constants';
+import { APP_ID, INPUT_ID, POEM_ID } from '../constants';
 import { setupEditor } from './editor';
 import { setupPoem } from './poem';
 
@@ -17,6 +17,13 @@ import { setupPoem } from './poem';
 
   const cleanupEditor = setupEditor(input);
   const cleanupPoem = setupPoem(poem, input);
+
+  fetch('http://localhost:3000/ping', {
+    method: 'GET',
+    mode: 'no-cors'
+  }).catch(error => {
+    console.log(error);
+  })
 
   window.addEventListener('unload', () => {
     cleanupEditor();

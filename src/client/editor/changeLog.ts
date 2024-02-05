@@ -16,45 +16,12 @@
     - many writes => one change
 */
 
+import { ChangeEvent } from "../../types/events";
+
 export const EVENT_BUFFER = 30;
 export const BASE_DEBOUNCE = 1000;
 
 // TODO: make this error if type is wrong
-export type ChangeEventPattern<T> = T extends ({
-  type: string,
-  value: string,
-}) ? T : "ERROR: Change event does not conform to pattern";
-
-export type ChangeEvent = ChangeEventPattern<
-  {
-    value: string
-  } & (
-    {
-      type: 'add',
-      addition: string,
-      from: number,
-      to: number
-    } | {
-      type: 'remove',
-      removal: string,
-      from: number,
-      to: number
-    } | {
-      type: 'select',
-      from: number,
-      to: number
-    } | {
-      type: 'paste',
-      from: number,
-      to: number,
-      overwrite: boolean
-    } | {
-      type: 'cut',
-      from: number,
-      to: number
-    }
-  )
->;
 
 export const log: ChangeEvent[] = [];
 export const actionLog: ChangeEvent[] = [];
@@ -64,8 +31,8 @@ const handleEvent = (event: ChangeEvent) => {
     case "add":
     case "remove":
     case "select":
-    case "paste":
-    case "cut": 
+    case "deselect":
+    case "replace":
       return;
     default: {
       const _assertNever: never = event;
