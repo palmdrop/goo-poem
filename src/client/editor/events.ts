@@ -105,12 +105,29 @@ export const setupListeners = (inputElement: HTMLInputElement, eventManagers: Ev
     switch(inputEvent.inputType) {
       case 'insertText': {
         // TODO: this should include the current selection itself?
-        eventManagers.add({
-          type: 'add',
-          addition: (event as unknown as { data: string }).data,
-          value,
-          from: from - 1
-        });
+        const addition = (event as unknown as { data: string }).data;
+        if(!selection) {
+          eventManagers.add({
+            type: 'add',
+            addition,
+            value,
+            from: from - 1,
+            change: true
+          });
+        } else {
+          const removed = previousValue.slice(selection.from, selection.to);
+          eventManagers.replace({
+            type: 'replace',
+            removed,
+            added: addition,
+            previousFrom: selection.from,
+            previousTo: selection.to,
+            currentFrom: selection.from,
+            currentTo: selection.from + 1,
+            change: true,
+            value
+          });
+        }
       } break;
       // TODO: backwards and forwards needs to take current selection into account! if it exist, that is the deletion
       case 'deleteContentBackward': 
@@ -120,12 +137,14 @@ export const setupListeners = (inputElement: HTMLInputElement, eventManagers: Ev
             type: 'remove',
             removal: previousValue.slice(selection.from, selection.to),
             ...selection,
+            change: true,
             value
           } : {
             type: 'remove',
             removal: previousValue.charAt(event.target?.selectionStart!),
             from,
             to: from + 1,
+            change: true,
             value
           }
         );
@@ -137,15 +156,49 @@ export const setupListeners = (inputElement: HTMLInputElement, eventManagers: Ev
           type: 'remove',
           removal: previousValue.slice(selection.from, selection.to),
           ...selection,
+          change: true,
           value
         })
       } break;
-      /*
       case 'insertFromPaste': {
-        if()
-        const previous = previousValue.slice(selection?.from, selection.to);
+        if(!selection) {
+          const insertionFrom = from - (value.length - previousValue.length);
+          const insertionTo = from;
+          const addition = value.slice(insertionFrom, insertionTo);
+          eventManagers.add({
+            type: 'add',
+            addition,
+            from: insertionFrom,
+            change: true,
+            value
+          })
+        } else {
+          const additionLength = (selection.to - selection.from + (value.length - previousValue.length));
+          const removed = previousValue.slice(selection.from, selection.to);
+          const added = value.slice(selection.from, selection.from + additionLength);
+          if(removed === added) break;
+          eventManagers.replace({
+            type: 'replace',
+            removed,
+            added,
+            previousFrom: selection.from,
+            previousTo: selection.to,
+            currentFrom: selection.from,
+            currentTo: selection.from + additionLength,
+            change: true,
+            value
+          });
+        }
       } break;
-      */
+      case 'historyUndo': {
+        if(value === previousValue) break;
+        eventManagers.undo({
+          type: 'undo',
+          value,
+          previousValue,
+          change: true
+        });
+      } break;
       default: {
         console.log(event);
         throw new Error(`Input type not managed! ${inputEvent.inputType}`);

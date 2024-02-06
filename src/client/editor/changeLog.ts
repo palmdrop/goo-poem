@@ -32,6 +32,7 @@ const handleEvent = (event: ChangeEvent) => {
     case "remove":
     case "select":
     case "deselect":
+    case "undo":
     case "replace":
       return;
     default: {

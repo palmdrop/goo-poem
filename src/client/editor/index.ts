@@ -17,7 +17,12 @@ export const setupEditor = (inputElement: HTMLInputElement) => {
     'deselect': event => {
       console.log('DESELECT', event)
     },
-    'replace': event => {},
+    'replace': event => {
+      console.log('REPLACE', event);
+    },
+    'undo': event => {
+      console.log('UNDO', event);
+    },
   });
 
   return () => {
