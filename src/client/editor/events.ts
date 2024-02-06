@@ -1,13 +1,11 @@
 import { debounce } from "lodash";
 import { Listeners, assignListeners } from "../utils/listeners";
 import { ChangeEvent } from "../../types/events";
-import { DiscriminateUnion, MapDiscriminatedUnion } from "../../types/utils";
 
 type InputEventWithTarget<E = Event> = E & { target: HTMLInputElement | null };
 type Listener<K extends keyof HTMLElementEventMap> = (event: InputEventWithTarget<HTMLElementEventMap[K]>) => void;
-type EventManagers = { 
-  [V in ChangeEvent['type']]: (event: DiscriminateUnion<ChangeEvent, 'type', V> ) => void 
-};
+
+type EventManager = (event: ChangeEvent) => void;
 
 const makeListener = <K extends keyof HTMLElementEventMap>(
   callback: Listener<K>
@@ -16,7 +14,7 @@ const makeListener = <K extends keyof HTMLElementEventMap>(
 }
 
 // TODO: abstract to change listeners registration step, which creates sensible events. Then convert these events to changelog events!?
-export const setupListeners = (inputElement: HTMLInputElement, eventManagers: EventManagers) => {
+export const setupListeners = (inputElement: HTMLInputElement, eventManager: EventManager) => {
   let selection: {
     from: number,
     to: number
@@ -29,27 +27,31 @@ export const setupListeners = (inputElement: HTMLInputElement, eventManagers: Ev
     const value = event.target?.value!;
 
     if(selection) {
-      eventManagers.select({
+      eventManager({
         type: 'select',
         ...selection,
         value,
         selection: value.slice(selection.from, selection.to)
       })
     } else {
-      eventManagers.deselect({
+      eventManager({
         type: 'deselect',
         value
       });
     }
   }, 10);
 
-  const onSelect = makeListener<'selectionchange'>(event => {
+  const setSelection = (event: InputEventWithTarget<Event>) => {
     selection = {
       from: event.target?.selectionStart!,
       to: event.target?.selectionEnd!,
     }
 
     selectionUpdateDebounced(event);
+  }
+
+  const onSelect = makeListener<'selectionchange'>(event => {
+    setSelection(event);
   });
 
   // NOTE: still possible to trick this by selecting everything then pressing shift+up/down twice!
@@ -101,13 +103,12 @@ export const setupListeners = (inputElement: HTMLInputElement, eventManagers: Ev
     const from = event.target?.selectionStart!;
     const value = event.target?.value!;
 
-
     switch(inputEvent.inputType) {
       case 'insertText': {
         // TODO: this should include the current selection itself?
         const addition = (event as unknown as { data: string }).data;
         if(!selection) {
-          eventManagers.add({
+          eventManager({
             type: 'add',
             addition,
             value,
@@ -116,7 +117,7 @@ export const setupListeners = (inputElement: HTMLInputElement, eventManagers: Ev
           });
         } else {
           const removed = previousValue.slice(selection.from, selection.to);
-          eventManagers.replace({
+          eventManager({
             type: 'replace',
             removed,
             added: addition,
@@ -129,10 +130,27 @@ export const setupListeners = (inputElement: HTMLInputElement, eventManagers: Ev
           });
         }
       } break;
-      // TODO: backwards and forwards needs to take current selection into account! if it exist, that is the deletion
+      case 'deleteWordForward': 
+      // @ts-ignore Intentional fallthrough if selection is set
+      case 'deleteWordBackward': {
+        if(!selection) {
+          const to = from + (previousValue.length - value.length);
+          const removal = previousValue.slice(from, to);
+          eventManager({
+            type: 'remove',
+            removal,
+            value,
+            from,
+            to,
+            change: true
+          });
+
+          break;
+        }
+      }
       case 'deleteContentBackward': 
       case 'deleteContentForward': {
-        eventManagers.remove(
+        eventManager(
           selection ? {
             type: 'remove',
             removal: previousValue.slice(selection.from, selection.to),
@@ -141,7 +159,7 @@ export const setupListeners = (inputElement: HTMLInputElement, eventManagers: Ev
             value
           } : {
             type: 'remove',
-            removal: previousValue.charAt(event.target?.selectionStart!),
+            removal: previousValue.charAt(from),
             from,
             to: from + 1,
             change: true,
@@ -152,7 +170,7 @@ export const setupListeners = (inputElement: HTMLInputElement, eventManagers: Ev
       case 'deleteByCut': {
         // NOTE: could be merged with previous cases?
         if(!selection) break;
-        eventManagers.remove({
+        eventManager({
           type: 'remove',
           removal: previousValue.slice(selection.from, selection.to),
           ...selection,
@@ -165,7 +183,7 @@ export const setupListeners = (inputElement: HTMLInputElement, eventManagers: Ev
           const insertionFrom = from - (value.length - previousValue.length);
           const insertionTo = from;
           const addition = value.slice(insertionFrom, insertionTo);
-          eventManagers.add({
+          eventManager({
             type: 'add',
             addition,
             from: insertionFrom,
@@ -177,7 +195,7 @@ export const setupListeners = (inputElement: HTMLInputElement, eventManagers: Ev
           const removed = previousValue.slice(selection.from, selection.to);
           const added = value.slice(selection.from, selection.from + additionLength);
           if(removed === added) break;
-          eventManagers.replace({
+          eventManager({
             type: 'replace',
             removed,
             added,
@@ -192,12 +210,20 @@ export const setupListeners = (inputElement: HTMLInputElement, eventManagers: Ev
       } break;
       case 'historyUndo': {
         if(value === previousValue) break;
-        eventManagers.undo({
+        eventManager({
           type: 'undo',
           value,
           previousValue,
           change: true
         });
+
+        if(
+          typeof event.target?.selectionStart === 'number' && 
+          typeof event.target?.selectionEnd === 'number' &&
+          event.target.selectionStart !== event.target.selectionEnd 
+        ) {
+          setSelection(event);
+        }
       } break;
       default: {
         console.log(event);

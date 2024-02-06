@@ -1,4 +1,10 @@
 import { setupListeners } from "./events";
+import { DiscriminateUnion } from "../../types/utils";
+import { ChangeEvent } from "../../types/events";
+
+type EventHandlers = { 
+  [V in ChangeEvent['type']]: (event: DiscriminateUnion<ChangeEvent, 'type', V> ) => void 
+};
 
 const INITIAL_VALUE = "Type here...";
 
@@ -6,24 +12,11 @@ const INITIAL_VALUE = "Type here...";
 export const setupEditor = (inputElement: HTMLInputElement) => {
   inputElement.value = INITIAL_VALUE;
 
-  const cleanupListeners = setupListeners(inputElement, {
-    'add': event => {
-      console.log("ADD", event);
+  const cleanupListeners = setupListeners(inputElement, 
+    event => {
+      console.log(event.type, event);
     },
-    'remove': event => { console.log("REMOVE", event )},
-    'select': event => {
-      console.log('SELECT', event);
-    },
-    'deselect': event => {
-      console.log('DESELECT', event)
-    },
-    'replace': event => {
-      console.log('REPLACE', event);
-    },
-    'undo': event => {
-      console.log('UNDO', event);
-    },
-  });
+  );
 
   return () => {
     cleanupListeners();
