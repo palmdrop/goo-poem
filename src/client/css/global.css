@@ -36,6 +36,11 @@ main {
 }
 
 #input-parent input {
-  border: 1px solid var(--fg);
+  border: unset;
+  background-color: unset;
+  outline: unset;
+
   padding: 1em;
+  font-size: 1.5rem;
+  font-style: italic;
 }

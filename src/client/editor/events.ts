@@ -112,9 +112,10 @@ export const setupListeners = (inputElement: HTMLInputElement, eventManager: Eve
           eventManager({
             type: 'add',
             addition,
-            value,
             from: from - 1,
-            change: true
+            change: true,
+            value,
+            previousValue,
           });
         } else {
           const removed = previousValue.slice(selection.from, selection.to);
@@ -127,7 +128,8 @@ export const setupListeners = (inputElement: HTMLInputElement, eventManager: Eve
             currentFrom: selection.from,
             currentTo: selection.from + 1,
             change: true,
-            value
+            value,
+            previousValue,
           });
         }
       } break;
@@ -140,10 +142,11 @@ export const setupListeners = (inputElement: HTMLInputElement, eventManager: Eve
           eventManager({
             type: 'remove',
             removal,
-            value,
             from,
             to,
-            change: true
+            change: true,
+            value,
+            previousValue,
           });
 
           break;
@@ -157,14 +160,16 @@ export const setupListeners = (inputElement: HTMLInputElement, eventManager: Eve
             removal: previousValue.slice(selection.from, selection.to),
             ...selection,
             change: true,
-            value
+            value,
+            previousValue
           } : {
             type: 'remove',
             removal: previousValue.charAt(from),
             from,
             to: from + 1,
             change: true,
-            value
+            value,
+            previousValue
           }
         );
       } break;
@@ -175,7 +180,8 @@ export const setupListeners = (inputElement: HTMLInputElement, eventManager: Eve
           removal: previousValue.slice(selection.from, selection.to),
           ...selection,
           change: true,
-          value
+          value,
+          previousValue
         })
       } break;
       case 'insertFromPaste': {
@@ -188,7 +194,8 @@ export const setupListeners = (inputElement: HTMLInputElement, eventManager: Eve
             addition,
             from: insertionFrom,
             change: true,
-            value
+            value,
+            previousValue
           })
         } else {
           const additionLength = (selection.to - selection.from + (value.length - previousValue.length));
@@ -204,7 +211,8 @@ export const setupListeners = (inputElement: HTMLInputElement, eventManager: Eve
             currentFrom: selection.from,
             currentTo: selection.from + additionLength,
             change: true,
-            value
+            value,
+            previousValue
           });
         }
       } break;

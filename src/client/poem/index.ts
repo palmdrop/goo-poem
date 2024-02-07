@@ -15,8 +15,8 @@ export const setupPoem = (
     updatePoem(event.value);
   }
 
-  changeLog.addListener(changeLogListener);
+  changeLog.addListener(changeLogListener, 'log');
   return () => {
-    changeLog.removeListener(changeLogListener);
+    changeLog.removeListener(changeLogListener, 'log');
   }
 }

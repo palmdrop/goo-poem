@@ -1,10 +1,11 @@
-export type ChangeEventPattern<T> = T extends ({
+export type ForceChangeEventPattern<T> = T extends ({
   type: string,
   value: string,
-  change?: boolean
+  change?: boolean,
+  previousValue?: string
 }) ? T : "ERROR: Change event does not conform to pattern";
 
-export type ChangeEvent = ChangeEventPattern<
+export type ChangeEvent = ForceChangeEventPattern<
   {
     value: string
     change?: boolean,
@@ -15,11 +16,13 @@ export type ChangeEvent = ChangeEventPattern<
       change: true
     } | {
       type: 'add',
+      previousValue: string,
       addition: string,
       from: number,
       change: true
     } | {
       type: 'remove',
+      previousValue: string,
       removal: string,
       from: number,
       to: number
@@ -33,6 +36,7 @@ export type ChangeEvent = ChangeEventPattern<
       type: 'deselect'
     } | {
       type: 'replace',
+      previousValue: string,
       removed: string,
       added: string,
       previousFrom: number,

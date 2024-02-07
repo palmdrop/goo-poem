@@ -5,7 +5,7 @@ export const setupLog = (listElement: HTMLUListElement) => {
   let isInitialized = false;
 
   const addItem = (event: ChangeEvent) => {
-    if(!event.change) return;
+    // if(!event.change) return;
 
     const listItem = document.createElement('li');
     const span = document.createElement('span');
@@ -17,7 +17,6 @@ export const setupLog = (listElement: HTMLUListElement) => {
     listElement.appendChild(listItem);
   }
 
-
   const changeLogListener: ChangeLogListener = (event, log) => {
     if(!isInitialized) {
       log.forEach(addItem);
@@ -27,8 +26,8 @@ export const setupLog = (listElement: HTMLUListElement) => {
     }
   }
 
-  changeLog.addListener(changeLogListener);
+  changeLog.addListener(changeLogListener, 'action');
   return () => {
-    changeLog.removeListener(changeLogListener);
+    changeLog.removeListener(changeLogListener, 'action');
   }
 }
