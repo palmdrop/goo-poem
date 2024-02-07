@@ -7,8 +7,13 @@ export type ChangeEventPattern<T> = T extends ({
 export type ChangeEvent = ChangeEventPattern<
   {
     value: string
+    change?: boolean,
+    timestamp: Date
   } & (
     {
+      type: 'init',
+      change: true
+    } | {
       type: 'add',
       addition: string,
       from: number,

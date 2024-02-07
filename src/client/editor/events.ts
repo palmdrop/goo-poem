@@ -1,11 +1,12 @@
 import { debounce } from "lodash";
 import { Listeners, assignListeners } from "../utils/listeners";
 import { ChangeEvent } from "../../types/events";
+import { DistributiveOmit } from "../../types/utils";
 
 type InputEventWithTarget<E = Event> = E & { target: HTMLInputElement | null };
 type Listener<K extends keyof HTMLElementEventMap> = (event: InputEventWithTarget<HTMLElementEventMap[K]>) => void;
 
-type EventManager = (event: ChangeEvent) => void;
+type EventManager = (event: DistributiveOmit<ChangeEvent, 'timestamp'>) => void;
 
 const makeListener = <K extends keyof HTMLElementEventMap>(
   callback: Listener<K>
@@ -15,6 +16,8 @@ const makeListener = <K extends keyof HTMLElementEventMap>(
 
 // TODO: abstract to change listeners registration step, which creates sensible events. Then convert these events to changelog events!?
 export const setupListeners = (inputElement: HTMLInputElement, eventManager: EventManager) => {
+  let initialValue = inputElement.value ?? "";
+  let previousValue = initialValue;
   let selection: {
     from: number,
     to: number
@@ -91,21 +94,19 @@ export const setupListeners = (inputElement: HTMLInputElement, eventManager: Eve
     }
 
     if(deselected) {
-      // selection = undefined;
       selectionUpdateDebounced(event, true);
     }
   });
 
-  let previousValue = inputElement.value ?? "";
   const onChange = makeListener<'input'>(event => {
     const inputEvent = event as InputEvent;
 
     const from = event.target?.selectionStart!;
+    const to = event.target?.selectionEnd!;
     const value = event.target?.value!;
 
     switch(inputEvent.inputType) {
       case 'insertText': {
-        // TODO: this should include the current selection itself?
         const addition = (event as unknown as { data: string }).data;
         if(!selection) {
           eventManager({
@@ -168,7 +169,6 @@ export const setupListeners = (inputElement: HTMLInputElement, eventManager: Eve
         );
       } break;
       case 'deleteByCut': {
-        // NOTE: could be merged with previous cases?
         if(!selection) break;
         eventManager({
           type: 'remove',
@@ -218,9 +218,9 @@ export const setupListeners = (inputElement: HTMLInputElement, eventManager: Eve
         });
 
         if(
-          typeof event.target?.selectionStart === 'number' && 
-          typeof event.target?.selectionEnd === 'number' &&
-          event.target.selectionStart !== event.target.selectionEnd 
+          typeof from === 'number' && 
+          typeof to === 'number' &&
+          from !== to
         ) {
           setSelection(event);
         }
@@ -249,6 +249,12 @@ export const setupListeners = (inputElement: HTMLInputElement, eventManager: Eve
   } satisfies Listeners;
 
   const cleanupListeners = assignListeners(inputElement, listeners)
+
+  eventManager({
+    type: 'init',
+    value: initialValue,
+    change: true
+  });
 
   return () => {
     cleanupListeners();

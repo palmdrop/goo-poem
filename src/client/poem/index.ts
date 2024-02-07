@@ -1,23 +1,22 @@
+import { ChangeLogListener, changeLog } from "../editor/changeLog";
 
 export const setupPoem = (
   poemElement: HTMLParagraphElement,
-  inputElement: HTMLInputElement,
+  initialValue: string,
 ) => {
   const updatePoem = (value: string) => {
     poemElement.innerText = value;
   }
 
-  const onInputChange = (event: Event) => {
-    const value = (event.target as { value?: string }).value;
-    if(!value) return
+  updatePoem(initialValue);
 
-    updatePoem(value);
+  const changeLogListener: ChangeLogListener = (event, _log) => {
+    if(!event.change) return;
+    updatePoem(event.value);
   }
 
-  inputElement.addEventListener('change', onInputChange);
-  updatePoem(inputElement.value);
-
+  changeLog.addListener(changeLogListener);
   return () => {
-    inputElement.removeEventListener('change', onInputChange);
+    changeLog.removeListener(changeLogListener);
   }
 }
