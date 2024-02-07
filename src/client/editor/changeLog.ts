@@ -1,29 +1,7 @@
-/*
-  TODO: 
-  TODO: Figure out if I can use node + git to automatically do this? use git to detect changes, additions, etc...?
-    * then extract this using fancy git commands in the shell... automatically commit to git using node server?
-  - [X] detect all changes as events
-    - [X] select (start, end)
-    - [X] delete (backspace/delete, take selection into account)
-      - start/end
-    - [X] paste (replace)
-    - [X] write (addition, from start of writing to reasonable end?)
-  - [ ] changelog has infinite length, until user stops typing
-
-  - [ ] merge events close in time
-    - [ ] debounced, merges only occur after a delay in regular changelog
-    - delete + add => replace
-    - many writes => one change
-*/
-
 import { compact, debounce } from "lodash";
 import { ChangeEvent } from "../../types/events";
 import { chunkWith } from "../utils/array";
-
-export const EVENT_BUFFER = 30;
-export const MERGE_DEBOUNCE = 1000;
-// export const ACTION_DEBOUNCE = 500;
-export const ACTION_DEBOUNCE = 1000;
+import { ACTION_DEBOUNCE, MERGE_DEBOUNCE } from "../../constants";
 
 export type ChangeLogListener = (event: ChangeEvent, log: ChangeEvent[]) => void;
 export type ListenerKind = 'log' | 'action';
@@ -69,28 +47,9 @@ const printEvent = (event: ChangeEvent) => {
   return `${event.type.toUpperCase()} (${event.timestamp.toLocaleTimeString()}): ${printMessage()}`
 }
 
-// NOTE: what if I want the entire changelog...? to show edits as well? Just adjust the intervals between the events?
 const mergeToActionEvents = debounce(() => {
-  /* 
-   * EVENTS
-    - add
-    - remove
-    - replace
-    - undo
-    - select
-  */
-
-  // TODO: 
-  // * Simplify?
-  /*
-    1. Groups: 
-      Simple groups: (select + deselect), (undo), (init), (add), (remove)
-      Complex groups: (remove -> add), (add -> remove), (replace -> add)
-  */
-
   const toProcess = log.slice(mergedUntilIndex);
 
-  // TODO: batch undos, not inits
   const selectionEvents: ChangeEvent['type'][] = ['select', 'deselect'];
 
   type ChunkState = 'adding' | 'selecting' | 'removing' | 'replacing' | 'undoing';
@@ -279,7 +238,9 @@ const clearListeners = () => {
 }
 
 const notifyListeners = (event: ChangeEvent, kind: ListenerKind) => {
-  getListeners(kind).forEach(listener => listener(event, log));
+  getListeners(kind).forEach(
+    listener => listener(event, kind === 'log' ? log : actionLog)
+  );
 }
 
 export const changeLog = {

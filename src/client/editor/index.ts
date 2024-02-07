@@ -1,7 +1,7 @@
 import { setupListeners } from "./events";
+import { changeLog } from "./changeLog";
 // import { DiscriminateUnion } from "../../types/utils";
 // import { ChangeEvent } from "../../types/events";
-import { changeLog } from "./changeLog";
 
 /*
 type EventHandlers = { 
