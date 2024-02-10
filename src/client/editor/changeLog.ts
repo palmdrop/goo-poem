@@ -23,6 +23,12 @@ const initialize = (initialLog: ChangeEvent[], kind: LogKind) => {
   }
 }
 
+const reset = () => {
+  log.length = 0;
+  actionLog.length = 0;
+  mergedUntilIndex = 0;
+}
+
 const addEvent = (event: ChangeEvent) => {
   log.push(event);
   notifyListeners(event, 'log');
@@ -256,6 +262,7 @@ const notifyListeners = (event: ChangeEvent, kind: LogKind) => {
 export const changeLog = {
   log,
   actionLog,
+  reset,
   initialize,
   addEvent,
   printEvent,

@@ -1,6 +1,6 @@
 import { SERVER_PORT } from '../server/constants';
 import { Data } from '../server/types';
-import { APP_ID, GOO_POEM_ID, INPUT_ID, LOG_ID, POEM_ID, PROGRESS_ID, SAVE_BUTTON_ID } from './constants';
+import { APP_ID, GOO_POEM_ID, INPUT_ID, LOG_ID, PROGRESS_ID, SAVE_BUTTON_ID } from './constants';
 import './css/global.css';
 import './css/reset.css';
 import './css/theme.css';
@@ -68,6 +68,7 @@ const INITIAL_VALUE = "";
 
       if(response.ok) {
         const log = parseLog(await response.json());
+        changeLog.reset();
         updateLog(log);
 
         console.log("Data stored!");
