@@ -1,10 +1,10 @@
 import { compact, debounce } from "lodash";
 import { ChangeEvent } from "../../types/events";
 import { chunkWith } from "../utils/array";
-import { ACTION_DEBOUNCE, MERGE_DEBOUNCE } from "../../constants";
+import { ACTION_DEBOUNCE, MERGE_DEBOUNCE } from "../constants";
 
 export type ChangeLogListener = (event: ChangeEvent, log: ChangeEvent[]) => void;
-export type ListenerKind = 'log' | 'action';
+export type LogKind = 'log' | 'action';
 
 const log: ChangeEvent[] = [];
 const actionLog: ChangeEvent[] = [];
@@ -12,6 +12,16 @@ const logListeners: Set<ChangeLogListener> = new Set<ChangeLogListener>();
 const actionListeners: Set<ChangeLogListener> = new Set<ChangeLogListener>();
 
 let mergedUntilIndex = 0;
+
+const initialize = (initialLog: ChangeEvent[], kind: LogKind) => {
+  if(kind === 'log') {
+    log.length = 0;
+    log.push(...initialLog);
+  } else {
+    actionLog.length = 0;
+    actionLog.push(...initialLog);
+  }
+}
 
 const addEvent = (event: ChangeEvent) => {
   log.push(event);
@@ -220,15 +230,15 @@ const mergeToActionEvents = debounce(() => {
   mergedUntilIndex = log.length;
 }, MERGE_DEBOUNCE);
 
-const getListeners = (kind: ListenerKind) => {
+const getListeners = (kind: LogKind) => {
   return kind === 'log' ? logListeners : actionListeners;
 }
 
-const addListener = (listener: ChangeLogListener, kind: ListenerKind) => {
+const addListener = (listener: ChangeLogListener, kind: LogKind) => {
   getListeners(kind).add(listener);
 }
 
-const removeListener = (listener: ChangeLogListener, kind: ListenerKind) => {
+const removeListener = (listener: ChangeLogListener, kind: LogKind) => {
   getListeners(kind).delete(listener);
 }
 
@@ -237,7 +247,7 @@ const clearListeners = () => {
   actionListeners.clear();
 }
 
-const notifyListeners = (event: ChangeEvent, kind: ListenerKind) => {
+const notifyListeners = (event: ChangeEvent, kind: LogKind) => {
   getListeners(kind).forEach(
     listener => listener(event, kind === 'log' ? log : actionLog)
   );
@@ -245,9 +255,11 @@ const notifyListeners = (event: ChangeEvent, kind: ListenerKind) => {
 
 export const changeLog = {
   log,
+  actionLog,
+  initialize,
   addEvent,
   printEvent,
   addListener,
   removeListener,
-  clearListeners
+  clearListeners,
 }

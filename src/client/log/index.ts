@@ -24,6 +24,8 @@ export const setupLog = (listElement: HTMLUListElement) => {
     } else {
       addItem(event);
     }
+
+    console.log({ log: changeLog.log, actions: changeLog.actionLog, value: changeLog.log.at(-1)?.value });
   }
 
   changeLog.addListener(changeLogListener, 'action');

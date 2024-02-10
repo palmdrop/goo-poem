@@ -18,33 +18,50 @@ main {
   overflow: hidden;
 }
 
-#poem {
+.poem-container {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: center;
+  align-items: center;
+}
+
+#goo-poem {
   padding: 1em;
-  margin: 1em;
 
   font-size: 1.2em;
   font-style: italic;
+
+  max-width: 500px;
 }
 
-#poem::after, #poem::before {
+#goo-poem p:last-child::after, #goo-poem p:first-child:before {
   content: '"';
   font-style: italic;
 }
 
-#input-parent {
-
-}
-
-#input-parent input {
+#input-parent textarea {
   border: unset;
   background-color: unset;
   outline: unset;
 
   padding: 1em;
-  font-size: 1.5rem;
+  font-size: 1.1rem;
   font-style: italic;
+  width: 500px;
+  max-width: 90vw;
+  height: 10em;
+  resize: none;
 }
 
 #log {
   display: none;
+}
+
+#save-button {
+  border: 1px solid black;
+  padding: 1em;
+  border-radius: 15px;
+
+  cursor: pointer;
 }

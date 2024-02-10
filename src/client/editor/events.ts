@@ -258,11 +258,13 @@ export const setupListeners = (inputElement: HTMLInputElement, eventManager: Eve
 
   const cleanupListeners = assignListeners(inputElement, listeners)
 
+  /*
   eventManager({
     type: 'init',
     value: initialValue,
     change: true
   });
+  */
 
   return () => {
     cleanupListeners();

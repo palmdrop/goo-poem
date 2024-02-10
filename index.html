@@ -10,20 +10,23 @@
     <div id="app">
       <main>
         <div class="poem-container">
-          <p id="poem"></p>
-          <p id="goo-poem"></p>
+          <div id="goo-poem"></div>
           <progress id="poem-progress" value="0" max="100">
         </div>
         </progress>
 
         <div id="input-parent">
-          <input id="input" type="text">
-          </input>
+          <textarea 
+            id="input" 
+            type="textarea"
+          >
+          </textarea>
         </div>
 
         <ul id="log">
         </ul>
 
+        <button id="save-button">Save</button>
       </main> 
     </div>
     <script type="module" src="/src/client/main.ts"></script>

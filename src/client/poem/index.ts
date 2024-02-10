@@ -1,26 +1,36 @@
-import { CHANGE_MAX_DELAY, LOOP_ITERATION_DELAY } from "../../constants";
+import { CHANGE_MAX_DELAY, LOOP_ITERATION_DELAY } from "../constants";
 import { ChangeEvent } from "../../types/events";
-import { ChangeLogListener, changeLog } from "../editor/changeLog";
 
 export const setupPoem = (
-  poemElement: HTMLParagraphElement,
   gooPoemElement: HTMLParagraphElement,
   progressElement: HTMLProgressElement,
-  initialValue: string,
+  value: string
 ) => {
   let actions: ChangeEvent[] = [];
   let nextActions: ChangeEvent[] | undefined = undefined;
 
   const updatePoem = (value: string, element: HTMLParagraphElement) => {
-    element.innerText = value;
+    let lines = value.split('/');
+
+    if(lines.length > 1) lines = lines
+      .map(line => line.trim())
+      .filter(Boolean)
+      .map(line => `${line} /`);
+
+    element.innerHTML = '';
+
+    lines.forEach(line => {
+      const pElement = document.createElement('p');
+      pElement.innerText = line;
+      element.appendChild(pElement);
+    });
   }
 
   const updateProgress = (value: number) => {
     progressElement.value = value;
   }
 
-  updatePoem(initialValue, poemElement);
-  updatePoem(initialValue, gooPoemElement);
+  updatePoem(value, gooPoemElement);
 
   let started = false;
   let index = 0;
@@ -50,24 +60,15 @@ export const setupPoem = (
     setTimeout(animate, delay);
   };
 
-  const logAnimationListener: ChangeLogListener = (_, log) => {
-    if(!started) {
-      actions = log;
-      started = true;
-      animate();
+  return {
+    updateLog: (log: ChangeEvent[]) => {
+      if(!started && log.length) {
+        actions = log;
+        started = true;
+        animate();
+      }
+
+      nextActions = log;
     }
-
-    nextActions = log;
-  }
-
-  const poemListener: ChangeLogListener = event => {
-    updatePoem(event.value, poemElement);
-  }
-
-  changeLog.addListener(logAnimationListener, 'action');
-  changeLog.addListener(poemListener, 'log');
-  return () => {
-    changeLog.removeListener(logAnimationListener, 'action');
-    changeLog.removeListener(poemListener, 'log');
   }
 }

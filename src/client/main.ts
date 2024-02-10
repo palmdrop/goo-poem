@@ -1,40 +1,87 @@
-import './css/reset.css'
-import './css/theme.css'
-import './css/global.css'
-import { APP_ID, LOG_ID, INPUT_ID, POEM_ID, PROGRESS_ID, GOO_POEM_ID } from '../constants';
+import { SERVER_PORT } from '../server/constants';
+import { Data } from '../server/types';
+import { APP_ID, GOO_POEM_ID, INPUT_ID, LOG_ID, POEM_ID, PROGRESS_ID, SAVE_BUTTON_ID } from './constants';
+import './css/global.css';
+import './css/reset.css';
+import './css/theme.css';
 import { setupEditor } from './editor';
-import { setupPoem } from './poem';
+import { changeLog } from './editor/changeLog';
 import { setupLog } from './log';
+import { setupPoem } from './poem';
 
 const INITIAL_VALUE = "";
 
-(() => {
-  const root = document.querySelector<HTMLDivElement>(APP_ID);
-  const poem = document.querySelector<HTMLDivElement>(POEM_ID);
-  const gooPoem = document.querySelector<HTMLDivElement>(GOO_POEM_ID);
-  const input = document.querySelector<HTMLInputElement>(INPUT_ID);
-  const log = document.querySelector<HTMLUListElement>(LOG_ID);
-  const progress = document.querySelector<HTMLProgressElement>(PROGRESS_ID);
+(async () => {
+  const rootElement = document.querySelector<HTMLDivElement>(APP_ID);
+  const gooPoemElement = document.querySelector<HTMLDivElement>(GOO_POEM_ID);
+  const inputElement = document.querySelector<HTMLInputElement>(INPUT_ID);
+  const logElement = document.querySelector<HTMLUListElement>(LOG_ID);
+  const progressElement = document.querySelector<HTMLProgressElement>(PROGRESS_ID);
+  const saveButtonElement = document.querySelector<HTMLButtonElement>(SAVE_BUTTON_ID);
 
-  if(!root || !poem || !gooPoem || !input || !log || !progress) {
+  if(!rootElement || !gooPoemElement || !inputElement || !logElement || !progressElement || !saveButtonElement) {
     alert("Something went wrong!")
     return;
   }
 
-  const cleanupLog = setupLog(log);
-  const cleanupPoem = setupPoem(poem, gooPoem, progress, INITIAL_VALUE);
-  const cleanupEditor = setupEditor(input, INITIAL_VALUE);
+  const parseLog = (log: any[]) => {
+    log.forEach((event: any) => {
+      event.timestamp = new Date(event.timestamp);
+    });
 
-  fetch('http://localhost:3000/ping', {
-    method: 'GET',
-    mode: 'no-cors'
-  }).catch(error => {
-    console.log(error);
-  })
+    return log;
+  }
+
+  const parseData = (data: Record<string, any>) => {
+    parseLog(data.log);
+    return data as Data;
+  }
+
+  const data = parseData(
+    await fetch(`http://localhost:${SERVER_PORT}/`, {
+      headers: {
+        'Accept': 'application/json'
+      }
+    }).then(response => response.json())
+  );
+
+  const { log, value = log.at(-1)?.value } = data;
+
+  const cleanupLog = setupLog(logElement);
+  const cleanupEditor = setupEditor(inputElement, value ?? INITIAL_VALUE);
+  const { updateLog } = setupPoem(gooPoemElement, progressElement, value ?? INITIAL_VALUE);
+
+  updateLog(log);
+
+  saveButtonElement.onclick = async () => {
+    try {
+      const response = await fetch(`http://localhost:${SERVER_PORT}/push`, {
+        method: 'POST',
+        body: JSON.stringify({
+          log: changeLog.actionLog,     
+          value: changeLog.log.at(-1)?.value
+        }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if(response.ok) {
+        const log = parseLog(await response.json());
+        updateLog(log);
+
+        console.log("Data stored!");
+      } else {
+        console.error("Error, data not stored", response);
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
 
   window.addEventListener('unload', () => {
     cleanupLog();
-    cleanupPoem();
+    // cleanupPoem();
     cleanupEditor();
   });
 })();
