@@ -1,13 +1,14 @@
-import { CHANGE_MAX_DELAY, GOO_POEM_ID, LOOP_ITERATION_DELAY, PROGRESS_ID } from "../constants";
+import { CHANGE_MAX_DELAY, GOO_POEM_ID, LOOP_ITERATION_DELAY, PROGRESS_BAR_ID, PROGRESS_ID } from "../constants";
 import { ChangeEvent } from "../../types/events";
 
 export const setupPoem = (
   value: string
 ) => {
   const gooPoemElement = document.querySelector<HTMLDivElement>(GOO_POEM_ID);
-  const progressElement = document.querySelector<HTMLProgressElement>(PROGRESS_ID);
+  const progressElement = document.querySelector<HTMLDivElement>(PROGRESS_ID);
+  const progressBarElement = document.querySelector<HTMLSpanElement>(PROGRESS_BAR_ID);
 
-  if(!gooPoemElement || !progressElement) throw new Error('Missing goo poem or progress element');
+  if(!gooPoemElement || !progressElement || !progressBarElement) throw new Error('Missing goo poem or progress element');
 
   let actions: ChangeEvent[] = [];
   let nextActions: ChangeEvent[] | undefined = undefined;
@@ -30,7 +31,7 @@ export const setupPoem = (
   }
 
   const updateProgress = (value: number) => {
-    progressElement.value = value;
+    progressBarElement.style.width = `${value}%`;
   }
 
   updatePoem(value, gooPoemElement);

@@ -69,19 +69,21 @@ main {
   cursor: pointer;
 }
 
-progress {
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
+#poem-progress {
   border: 1px solid var(--fg);
-  background-color: var(--bg);
   border-radius: 5px;
-}
-
-progress::-webkit-progress-value {
-  background-color: var(--fg);
-}
-
-progress::-webkit-progress-bar {
   background-color: var(--bg);
+
+  width: 300px;
+  height: 20px;
+  max-width: 100%;
+}
+
+#poem-progress-bar {
+  height: 100%;
+  display: inline-block;
+
+  background-color: var(--fg);
+
+  transition: 0.4s;
 }
