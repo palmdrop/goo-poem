@@ -29,7 +29,7 @@ main {
 #goo-poem {
   padding: 1em;
 
-  font-size: 1.2em;
+  font-size: 2.0em;
   font-style: italic;
 
   max-width: 500px;
@@ -45,6 +45,7 @@ main {
   background-color: unset;
   outline: unset;
 
+  margin: 1em;
   padding: 1em;
   font-size: 1.1rem;
   font-style: italic;
@@ -52,6 +53,8 @@ main {
   max-width: 90vw;
   height: 10em;
   resize: none;
+
+  border: 1px solid black;
 }
 
 #log {
@@ -64,4 +67,21 @@ main {
   border-radius: 15px;
 
   cursor: pointer;
+}
+
+progress {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid var(--fg);
+  background-color: var(--bg);
+  border-radius: 5px;
+}
+
+progress::-webkit-progress-value {
+  background-color: var(--fg);
+}
+
+progress::-webkit-progress-bar {
+  background-color: var(--bg);
 }

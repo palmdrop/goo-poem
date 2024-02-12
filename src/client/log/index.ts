@@ -1,8 +1,12 @@
 import { ChangeEvent } from "../../types/events";
+import { LOG_ID } from "../constants";
 import { ChangeLogListener, changeLog } from "../editor/changeLog"
 
-export const setupLog = (listElement: HTMLUListElement) => {
+export const setupLog = () => {
+  const element = document.querySelector<HTMLUListElement>(LOG_ID);
   let isInitialized = false;
+
+  if(!element) throw new Error('Log element is missing');
 
   const addItem = (event: ChangeEvent) => {
     // if(!event.change) return;
@@ -11,10 +15,10 @@ export const setupLog = (listElement: HTMLUListElement) => {
     const span = document.createElement('span');
     const content = changeLog.printEvent(event);
 
-    listElement.appendChild(span);
+    element.appendChild(span);
     span.innerText = content;
 
-    listElement.appendChild(listItem);
+    element.appendChild(listItem);
   }
 
   const changeLogListener: ChangeLogListener = (event, log) => {

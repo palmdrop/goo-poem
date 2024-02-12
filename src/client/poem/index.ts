@@ -1,11 +1,14 @@
-import { CHANGE_MAX_DELAY, LOOP_ITERATION_DELAY } from "../constants";
+import { CHANGE_MAX_DELAY, GOO_POEM_ID, LOOP_ITERATION_DELAY, PROGRESS_ID } from "../constants";
 import { ChangeEvent } from "../../types/events";
 
 export const setupPoem = (
-  gooPoemElement: HTMLParagraphElement,
-  progressElement: HTMLProgressElement,
   value: string
 ) => {
+  const gooPoemElement = document.querySelector<HTMLDivElement>(GOO_POEM_ID);
+  const progressElement = document.querySelector<HTMLProgressElement>(PROGRESS_ID);
+
+  if(!gooPoemElement || !progressElement) throw new Error('Missing goo poem or progress element');
+
   let actions: ChangeEvent[] = [];
   let nextActions: ChangeEvent[] | undefined = undefined;
 

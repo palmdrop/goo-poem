@@ -13,13 +13,9 @@ const INITIAL_VALUE = "";
 
 (async () => {
   const rootElement = document.querySelector<HTMLDivElement>(APP_ID);
-  const gooPoemElement = document.querySelector<HTMLDivElement>(GOO_POEM_ID);
-  const inputElement = document.querySelector<HTMLInputElement>(INPUT_ID);
-  const logElement = document.querySelector<HTMLUListElement>(LOG_ID);
-  const progressElement = document.querySelector<HTMLProgressElement>(PROGRESS_ID);
   const saveButtonElement = document.querySelector<HTMLButtonElement>(SAVE_BUTTON_ID);
 
-  if(!rootElement || !gooPoemElement || !inputElement || !logElement || !progressElement || !saveButtonElement) {
+  if(!rootElement || !saveButtonElement) {
     alert("Something went wrong!")
     return;
   }
@@ -47,9 +43,9 @@ const INITIAL_VALUE = "";
 
   const { log, value = log.at(-1)?.value } = data;
 
-  const cleanupLog = setupLog(logElement);
-  const cleanupEditor = setupEditor(inputElement, value ?? INITIAL_VALUE);
-  const { updateLog } = setupPoem(gooPoemElement, progressElement, value ?? INITIAL_VALUE);
+  const cleanupLog = setupLog();
+  const cleanupEditor = setupEditor(value ?? INITIAL_VALUE);
+  const { updateLog } = setupPoem(value ?? INITIAL_VALUE);
 
   updateLog(log);
 
