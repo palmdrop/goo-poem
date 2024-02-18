@@ -2,7 +2,7 @@ import { ChangeEvent } from '../types/events';
 import { cleanLog, fetchData, storeData } from './api';
 import { APP_ID, SAVE_BUTTON_ID } from './constants';
 import { setupEditor } from './editor';
-import { changeLog } from './editor/changeLog';
+import { ChangeLogListener, changeLog } from './editor/changeLog';
 import { setupLog } from './log';
 import { setupPoem } from './poem';
 
@@ -33,9 +33,12 @@ const INITIAL_VALUE = "";
   updateLog(log);
   changeLog.initialize(log, 'action');
   changeLog.storedToIndex = log.length;
-  changeLog.addListener((_, actions) => {
+
+  const onChange: ChangeLogListener = (_, actions) => {
     updateLog(cleanLog(actions));
-  }, 'action');
+  }
+
+  changeLog.addListener(onChange, 'action');
 
   saveButtonElement.onclick = async () => {
     const log = await storeData();
@@ -47,5 +50,6 @@ const INITIAL_VALUE = "";
   window.addEventListener('unload', () => {
     cleanupLog();
     cleanupEditor();
+    changeLog.clearListeners();
   });
 })();
