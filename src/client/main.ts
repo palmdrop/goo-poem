@@ -1,20 +1,16 @@
-import { SERVER_PORT } from '../server/constants';
-import { Data } from '../server/types';
 import { ChangeEvent } from '../types/events';
-import { APP_ID, GOO_POEM_ID, INPUT_ID, LOG_ID, PROGRESS_ID, SAVE_BUTTON_ID } from './constants';
-import './css/global.css';
-import './css/reset.css';
-import './css/theme.css';
+import { cleanLog, fetchData, storeData } from './api';
+import { APP_ID, SAVE_BUTTON_ID } from './constants';
 import { setupEditor } from './editor';
 import { changeLog } from './editor/changeLog';
 import { setupLog } from './log';
 import { setupPoem } from './poem';
 
-const INITIAL_VALUE = "";
+import './css/global.css';
+import './css/reset.css';
+import './css/theme.css';
 
-const cleanLog = (log: ChangeEvent[]) => {
-  return log.filter(event => event.change);
-}
+const INITIAL_VALUE = "";
 
 (async () => {
   const rootElement = document.querySelector<HTMLDivElement>(APP_ID);
@@ -25,31 +21,10 @@ const cleanLog = (log: ChangeEvent[]) => {
     return;
   }
 
-  const parseLog = (log: any[]) => {
-    log.forEach((event: any) => {
-      event.timestamp = new Date(event.timestamp);
-    });
-
-    return log;
-  }
-
-  const parseData = (data: Record<string, any>) => {
-    parseLog(data.log);
-    return data as Data;
-  }
-
-  const data = parseData(
-    await fetch(`http://localhost:${SERVER_PORT}/`, {
-      headers: {
-        'Accept': 'application/json'
-      }
-    }).then(response => response.json())
-  );
-
   const { 
     log, 
     value = log.at(-1)?.value 
-  } = data;
+  } = await fetchData();
 
   const cleanupLog = setupLog();
   const cleanupEditor = setupEditor(value ?? INITIAL_VALUE);
@@ -63,38 +38,14 @@ const cleanLog = (log: ChangeEvent[]) => {
   }, 'action');
 
   saveButtonElement.onclick = async () => {
-    try {
-      const log = changeLog.actionLog.slice(changeLog.storedToIndex);
-      console.log(log);
-      const response = await fetch(`http://localhost:${SERVER_PORT}/push`, {
-        method: 'POST',
-        body: JSON.stringify({
-          log: cleanLog(log),
-          value: changeLog.log.at(-1)?.value
-        }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-
-      if(response.ok) {
-        changeLog.storedToIndex = changeLog.actionLog.length;
-        const log = parseLog(await response.json());
-        // changeLog.reset();
-        updateLog(log);
-
-        console.log("Data stored!");
-      } else {
-        console.error("Error, data not stored", response);
-      }
-    } catch (error) {
-      console.error(error)
+    const log = await storeData();
+    if(log) {
+      updateLog(log);
     }
   }
 
   window.addEventListener('unload', () => {
     cleanupLog();
-    // cleanupPoem();
     cleanupEditor();
   });
 })();
