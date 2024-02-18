@@ -12,6 +12,7 @@ const logListeners: Set<ChangeLogListener> = new Set<ChangeLogListener>();
 const actionListeners: Set<ChangeLogListener> = new Set<ChangeLogListener>();
 
 let mergedUntilIndex = 0;
+let storedToIndex = 0;
 
 const initialize = (initialLog: ChangeEvent[], kind: LogKind) => {
   if(kind === 'log') {
@@ -262,6 +263,7 @@ const notifyListeners = (event: ChangeEvent, kind: LogKind) => {
 export const changeLog = {
   log,
   actionLog,
+  storedToIndex,
   reset,
   initialize,
   addEvent,

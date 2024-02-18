@@ -1,5 +1,6 @@
 import { SERVER_PORT } from '../server/constants';
 import { Data } from '../server/types';
+import { ChangeEvent } from '../types/events';
 import { APP_ID, GOO_POEM_ID, INPUT_ID, LOG_ID, PROGRESS_ID, SAVE_BUTTON_ID } from './constants';
 import './css/global.css';
 import './css/reset.css';
@@ -10,6 +11,10 @@ import { setupLog } from './log';
 import { setupPoem } from './poem';
 
 const INITIAL_VALUE = "";
+
+const cleanLog = (log: ChangeEvent[]) => {
+  return log.filter(event => event.change);
+}
 
 (async () => {
   const rootElement = document.querySelector<HTMLDivElement>(APP_ID);
@@ -41,20 +46,30 @@ const INITIAL_VALUE = "";
     }).then(response => response.json())
   );
 
-  const { log, value = log.at(-1)?.value } = data;
+  const { 
+    log, 
+    value = log.at(-1)?.value 
+  } = data;
 
   const cleanupLog = setupLog();
   const cleanupEditor = setupEditor(value ?? INITIAL_VALUE);
   const { updateLog } = setupPoem(value ?? INITIAL_VALUE);
 
   updateLog(log);
+  changeLog.initialize(log, 'action');
+  changeLog.storedToIndex = log.length;
+  changeLog.addListener((_, actions) => {
+    updateLog(cleanLog(actions));
+  }, 'action');
 
   saveButtonElement.onclick = async () => {
     try {
+      const log = changeLog.actionLog.slice(changeLog.storedToIndex);
+      console.log(log);
       const response = await fetch(`http://localhost:${SERVER_PORT}/push`, {
         method: 'POST',
         body: JSON.stringify({
-          log: changeLog.actionLog,     
+          log: cleanLog(log),
           value: changeLog.log.at(-1)?.value
         }),
         headers: {
@@ -63,8 +78,9 @@ const INITIAL_VALUE = "";
       });
 
       if(response.ok) {
+        changeLog.storedToIndex = changeLog.actionLog.length;
         const log = parseLog(await response.json());
-        changeLog.reset();
+        // changeLog.reset();
         updateLog(log);
 
         console.log("Data stored!");

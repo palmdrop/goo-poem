@@ -9,8 +9,6 @@ export const setupLog = () => {
   if(!element) throw new Error('Log element is missing');
 
   const addItem = (event: ChangeEvent) => {
-    // if(!event.change) return;
-
     const listItem = document.createElement('li');
     const span = document.createElement('span');
     const content = changeLog.printEvent(event);

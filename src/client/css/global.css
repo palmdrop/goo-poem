@@ -87,3 +87,22 @@ main {
 
   transition: 0.4s;
 }
+
+.poem-controller {
+  padding: 1.0em;
+  margin: 0.5em;
+}
+
+.poem-controller span {
+  margin: 0em 1em;
+  text-decoration: underline;
+}
+
+.poem-controller button {
+  background-color: black;
+  color: white;
+  padding: 0.5em;
+  border-radius: 5px;
+
+  cursor: pointer;
+}
