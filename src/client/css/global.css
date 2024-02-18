@@ -64,7 +64,6 @@ main {
 #save-button {
   border: 1px solid black;
   padding: 1em;
-  border-radius: 15px;
 
   cursor: pointer;
 }
@@ -91,18 +90,39 @@ main {
 .poem-controller {
   padding: 1.0em;
   margin: 0.5em;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  gap: 0.3em;
 }
 
-.poem-controller span {
-  margin: 0em 1em;
-  text-decoration: underline;
+.poem-controller > div {
+  display: flex;
+  gap: 0.5em;
+  padding: 0.3em 0em;
+}
+
+#poem-index::before {
+  content: "(";
+}
+
+#poem-index::after {
+  content: ")";
 }
 
 .poem-controller button {
-  background-color: black;
-  color: white;
-  padding: 0.5em;
-  border-radius: 5px;
-
+  padding: 0.5rem;
   cursor: pointer;
+  border: 1px solid black;
+
+  width: 1rem;
+  height: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#stop-button {
+  font-size: 1.4rem;
 }
