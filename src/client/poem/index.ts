@@ -1,5 +1,6 @@
-import { CHANGE_MAX_DELAY, GOO_POEM_ID, LOOP_ITERATION_DELAY, POEM_INDEX_ID, POEM_MAX_INDEX_ID, POEM_MIN_INDEX_ID, PROGRESS_BAR_ID, PROGRESS_ID, START_BUTTON_ID, STOP_BUTTON_ID } from "../constants";
+import { CHANGE_MAX_DELAY, GOO_POEM_ID, LOOP_ITERATION_DELAY, POEM_INDEX_ID, POEM_MAX_INDEX_ID, POEM_MIN_INDEX_ID, PROGRESS_BAR_ID, PROGRESS_ID, START_BUTTON_ID, START_FROM_SAVE_BUTTON, STOP_BUTTON_ID } from "../constants";
 import { ChangeEvent } from "../../types/events";
+import { changeLog } from "../editor/changeLog";
 
 const setIndex = (span: HTMLSpanElement, index: number) => {
   span.innerText = `${index + 1}`;
@@ -17,6 +18,7 @@ export const setupPoem = (
   const indexSpan = document.querySelector<HTMLSpanElement>(POEM_INDEX_ID);
   const startButton = document.querySelector<HTMLButtonElement>(START_BUTTON_ID);
   const stopButton = document.querySelector<HTMLButtonElement>(STOP_BUTTON_ID);
+  const startFromSaveButton = document.querySelector<HTMLButtonElement>(START_FROM_SAVE_BUTTON);
 
   if(
     !gooPoemElement || 
@@ -26,14 +28,16 @@ export const setupPoem = (
     !maxIndexSpan ||
     !indexSpan ||
     !startButton ||
-    !stopButton
+    !stopButton ||
+    !startFromSaveButton
   ) throw new Error('Missing goo poem or progress element');
 
   let actions: ChangeEvent[] | undefined = undefined;
   let nextActions: ChangeEvent[] | undefined = undefined;
   let playing = false;
+  let startIndex = 0;
 
-  setIndex(minIndexSpan, 0);
+  setIndex(minIndexSpan, startIndex);
 
   const updatePoem = (value: string, element: HTMLParagraphElement) => {
     let lines = value.split('/');
@@ -64,14 +68,14 @@ export const setupPoem = (
     if(!actions) return;
 
     if(index >= actions.length) {
-      index = 0;
+      index = startIndex;
     }
 
     if(nextActions?.length && index < nextActions.length) {
       actions = nextActions;
       nextActions = undefined;
 
-      setIndex(maxIndexSpan, actions.length);
+      setIndex(maxIndexSpan, actions.length - 1);
     }
 
     setIndex(indexSpan, index);
@@ -106,8 +110,35 @@ export const setupPoem = (
     clearTimeout(timeout);
   };
 
+  
+  let startingFromSave = false;
+
+  const setStartingFromSaveButtonText = () => {
+    startFromSaveButton.innerText = startingFromSave 
+      ? 'From beginning'
+      : 'From last save';
+  }
+
+  const toggleStartFromSave = () => {
+    startingFromSave = !startingFromSave;
+
+    startIndex = startingFromSave 
+      ? (changeLog.storedToIndex - 1)
+      : 0;
+
+    if(index < startIndex) {
+      index = startIndex;
+    }
+
+    setIndex(minIndexSpan, startIndex);
+    setStartingFromSaveButtonText();
+  }
+
   startButton.onclick = play;
   stopButton.onclick = stop;
+
+  setStartingFromSaveButtonText();
+  startFromSaveButton.onclick = toggleStartFromSave;
 
   return {
     updateLog: (log: ChangeEvent[]) => {
@@ -115,7 +146,7 @@ export const setupPoem = (
         actions = log;
         playing = true;
         animate();
-        setIndex(maxIndexSpan, log.length);
+        setIndex(maxIndexSpan, log.length - 1);
       }
 
       nextActions = log;

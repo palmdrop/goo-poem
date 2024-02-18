@@ -7,6 +7,7 @@ export const LOG_ID = "#log";
 export const PROGRESS_ID = "#poem-progress";
 export const PROGRESS_BAR_ID = "#poem-progress-bar";
 export const SAVE_BUTTON_ID = "#save-button";
+export const START_FROM_SAVE_BUTTON = "#start-from-save-button";
 
 export const POEM_MIN_INDEX_ID = "#poem-min-index";
 export const POEM_MAX_INDEX_ID = "#poem-max-index";

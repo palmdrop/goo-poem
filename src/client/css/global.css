@@ -126,3 +126,7 @@ main {
 #stop-button {
   font-size: 1.4rem;
 }
+
+#start-from-save-button {
+  width: auto;
+}

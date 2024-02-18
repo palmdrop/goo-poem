@@ -1,4 +1,3 @@
-import { ChangeEvent } from '../types/events';
 import { cleanLog, fetchData, storeData } from './api';
 import { APP_ID, SAVE_BUTTON_ID } from './constants';
 import { setupEditor } from './editor';
