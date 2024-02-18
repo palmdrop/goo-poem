@@ -61,17 +61,17 @@ export const setupPoem = (
   let index = 0;
   let timeout: NodeJS.Timeout;
   const animate = () => {
-    // console.log("animating", actions);
     if(!actions) return;
 
     if(index >= actions.length) {
       index = 0;
-      if(nextActions?.length) {
-        actions = nextActions;
-        nextActions = undefined;
+    }
 
-        setIndex(maxIndexSpan, actions.length);
-      }
+    if(nextActions?.length && index < nextActions.length) {
+      actions = nextActions;
+      nextActions = undefined;
+
+      setIndex(maxIndexSpan, actions.length);
     }
 
     setIndex(indexSpan, index);
@@ -115,12 +115,10 @@ export const setupPoem = (
         actions = log;
         playing = true;
         animate();
-
-        setIndex(maxIndexSpan, actions.length);
+        setIndex(maxIndexSpan, log.length);
       }
 
       nextActions = log;
-      setIndex(maxIndexSpan, log.length);
     },
 
   }
