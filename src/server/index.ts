@@ -10,7 +10,10 @@ const PATH = `./${DATA_FILE}`;
 let data: Data;
 
 const writeData = async (data: Data) => {
-  await fs.writeFile(PATH, JSON.stringify(data));
+  await fs.writeFile(
+    PATH, 
+    JSON.stringify(data, null, 2)
+  );
 }
 
 const readData = async () => {
@@ -66,10 +69,14 @@ app.post('/push', async (request: Request<{}, {}, Data>, response) => {
   console.log("Pushing data...")
 
   const { value, log } = request.body;
+
+  if(!log.length) {
+    console.warn("Log empty. Nothing to store...")
+    return;
+  }
   
   data.log.push(...log);
   data.value = value;
-  console.log(data);
   await writeData(data);;
 
   response.status(200);
