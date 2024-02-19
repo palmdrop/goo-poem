@@ -13,21 +13,26 @@ const actionListeners: Set<ChangeLogListener> = new Set<ChangeLogListener>();
 
 let mergedUntilIndex = 0;
 let storedToIndex = 0;
+let storedToLogIndex = 0;
 
-const initialize = (initialLog: ChangeEvent[], kind: LogKind) => {
-  if(kind === 'log') {
-    log.length = 0;
-    log.push(...initialLog);
-  } else {
-    actionLog.length = 0;
-    actionLog.push(...initialLog);
-  }
+const initialize = (initialLog: ChangeEvent[]) => {
+  actionLog.length = 0;
+  actionLog.push(...initialLog);
+  storedToIndex = actionLog.length;
 }
 
+const updateStoredToIndexes = () => {
+  storedToIndex = changeLog.actionLog.length;
+  storedToLogIndex = changeLog.log.length;
+}
+
+const getUnstoredActions = () => changeLog.actionLog.slice(storedToIndex);
+const getStoredToIndex = () => storedToIndex;
+
 const reset = () => {
-  log.length = 0;
-  actionLog.length = 0;
-  mergedUntilIndex = 0;
+  log.length = storedToLogIndex;
+  actionLog.length = storedToIndex;
+  mergedUntilIndex = log.length;
 }
 
 const addEvent = (event: ChangeEvent) => {
@@ -263,9 +268,11 @@ const notifyListeners = (event: ChangeEvent, kind: LogKind) => {
 export const changeLog = {
   log,
   actionLog,
-  storedToIndex,
   reset,
   initialize,
+  updateStoredToIndexes,
+  getStoredToIndex,
+  getUnstoredActions,
   addEvent,
   printEvent,
   addListener,

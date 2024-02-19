@@ -119,12 +119,15 @@ export const setupPoem = (
       : 'From last save';
   }
 
+  const updateStartIndex = () => {
+    startIndex = startingFromSave 
+      ? (changeLog.getStoredToIndex() - 1)
+      : 0;
+  }
   const toggleStartFromSave = () => {
     startingFromSave = !startingFromSave;
 
-    startIndex = startingFromSave 
-      ? (changeLog.storedToIndex - 1)
-      : 0;
+    updateStartIndex();
 
     if(index < startIndex) {
       index = startIndex;
@@ -141,7 +144,7 @@ export const setupPoem = (
   startFromSaveButton.onclick = toggleStartFromSave;
 
   return {
-    updateLog: (log: ChangeEvent[]) => {
+    updateLog: (log: ChangeEvent[], force = false) => {
       if(!actions && log.length) {
         actions = log;
         playing = true;
@@ -149,8 +152,15 @@ export const setupPoem = (
         setIndex(maxIndexSpan, log.length - 1);
       }
 
+      if(force) {
+        clearTimeout(timeout);
+        actions = log;
+        setIndex(maxIndexSpan, actions.length - 1);
+        if(playing) animate();
+      }
+
       nextActions = log;
     },
-
+    updateStartIndex
   }
 }

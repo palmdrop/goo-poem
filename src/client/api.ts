@@ -30,9 +30,7 @@ export const fetchData = async () => parseData(
 
 export const storeData = async () => {
   try {
-    const log = changeLog.actionLog.slice(
-      changeLog.storedToIndex
-    );
+    const log = changeLog.getUnstoredActions();
 
     const response = await fetch(`http://localhost:${SERVER_PORT}/push`, {
       method: 'POST',
@@ -46,7 +44,7 @@ export const storeData = async () => {
     });
 
     if(response.ok) {
-      changeLog.storedToIndex = changeLog.actionLog.length;
+      changeLog.updateStoredToIndexes();
       const log = parseLog(await response.json());
 
       console.log("Data stored!");

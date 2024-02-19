@@ -1,5 +1,5 @@
 import { cleanLog, fetchData, storeData } from './api';
-import { APP_ID, SAVE_BUTTON_ID } from './constants';
+import { APP_ID, RESET_BUTTON_ID, SAVE_BUTTON_ID } from './constants';
 import { setupEditor } from './editor';
 import { ChangeLogListener, changeLog } from './editor/changeLog';
 import { setupLog } from './log';
@@ -14,24 +14,27 @@ const INITIAL_VALUE = "";
 (async () => {
   const rootElement = document.querySelector<HTMLDivElement>(APP_ID);
   const saveButtonElement = document.querySelector<HTMLButtonElement>(SAVE_BUTTON_ID);
+  const resetButtonElement = document.querySelector<HTMLButtonElement>(RESET_BUTTON_ID);
 
-  if(!rootElement || !saveButtonElement) {
+  if(!rootElement || !saveButtonElement || !resetButtonElement) {
     alert("Something went wrong!")
     return;
   }
 
   const { 
-    log, 
-    value = log.at(-1)?.value 
+    log: actionLog, 
+    value = actionLog.at(-1)?.value 
   } = await fetchData();
 
   const cleanupLog = setupLog();
-  const cleanupEditor = setupEditor(value ?? INITIAL_VALUE);
-  const { updateLog } = setupPoem(value ?? INITIAL_VALUE);
+  const { 
+    setValue: setEditorValue,
+    cleanup: cleanupEditor
+  } = setupEditor(value ?? INITIAL_VALUE);
+  const { updateLog, updateStartIndex } = setupPoem(value ?? INITIAL_VALUE);
 
-  updateLog(log);
-  changeLog.initialize(log, 'action');
-  changeLog.storedToIndex = log.length;
+  updateLog(actionLog);
+  changeLog.initialize(actionLog);
 
   const onChange: ChangeLogListener = (_, actions) => {
     updateLog(cleanLog(actions));
@@ -43,7 +46,14 @@ const INITIAL_VALUE = "";
     const log = await storeData();
     if(log) {
       updateLog(log);
+      updateStartIndex();
     }
+  }
+
+  resetButtonElement.onclick = () => {
+    changeLog.reset(); 
+    updateLog(changeLog.actionLog, true);
+    setEditorValue(changeLog.actionLog.at(-1)?.value ?? INITIAL_VALUE);
   }
 
   window.addEventListener('unload', () => {

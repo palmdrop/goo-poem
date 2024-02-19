@@ -68,6 +68,13 @@ main {
   cursor: pointer;
 }
 
+#reset-button {
+  border: 1px solid black;
+  padding: 1em;
+
+  cursor: pointer;
+}
+
 #poem-progress {
   border: 1px solid var(--fg);
   border-radius: 5px;
