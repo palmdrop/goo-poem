@@ -68,6 +68,11 @@ main {
   cursor: pointer;
 }
 
+#save-button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
 #reset-button {
   border: 1px solid black;
   padding: 1em;

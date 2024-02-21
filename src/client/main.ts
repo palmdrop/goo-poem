@@ -37,16 +37,21 @@ const INITIAL_VALUE = "";
   changeLog.initialize(actionLog);
 
   const onChange: ChangeLogListener = (_, actions) => {
-    updateLog(cleanLog(actions));
+    const cleanedLog = cleanLog(actions);
+    updateLog(cleanedLog);
+    const saveDisabled = !cleanLog(changeLog.getUnstoredActions()).length;
+    saveButtonElement.disabled = saveDisabled;
   }
 
   changeLog.addListener(onChange, 'action');
 
+  saveButtonElement.disabled = true;
   saveButtonElement.onclick = async () => {
     const log = await storeData();
     if(log) {
       updateLog(log);
       updateStartIndex();
+      saveButtonElement.disabled = true;
     }
   }
 

@@ -1,7 +1,6 @@
 import { setupListeners } from "./events";
 import { changeLog } from "./changeLog";
 import { INPUT_ID } from "../constants";
-import { values } from "lodash";
 
 export const setupEditor = (initialValue: string) => {
   const inputElement = document.querySelector<HTMLInputElement>(INPUT_ID);

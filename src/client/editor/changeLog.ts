@@ -135,11 +135,7 @@ const mergeToActionEvents = debounce(() => {
 
         const lastEvent = chunk.at(-1)!;
         const addition = lastEvent.value!.slice(from, to + 1)!;
-        console.log({
-          type: 'add',
-          from, to,
-          addition
-        })
+
         return {
           type: 'add',
           addition,
