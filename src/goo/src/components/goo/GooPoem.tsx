@@ -1,4 +1,4 @@
-import { createSignal, type Component, createMemo } from 'solid-js';
+import { createSignal, type Component, createMemo, onCleanup } from 'solid-js';
 import { GooPoem } from '../../types/goo-poem';
 import { flowLoop } from '../../core/flow';
 
@@ -10,16 +10,22 @@ const Poem: Component<GooPoem> = ({ log })=> {
   const [line, setLine] = createSignal<string>('');
 
   const [animate, setAnimate] = createSignal(false);
+  const [animationTime, setAnimationDelay] = createSignal(0);
 
-  flowLoop(log, (action, delay) => {
-    const animationTime = Math.min(delay, MAX_ANIMATION_TIME) - 1;
+  const { stop } = flowLoop(log, (action, delay) => {
+    const animationTime = delay - 100;
     setAnimate(true);
+    setAnimationDelay(animationTime);
     setTimeout(() => {
       setAnimate(false);
     }, animationTime);
 
     setPreviousLine(line());
     setLine(action.value);
+  });
+
+  onCleanup(() => {
+    stop();
   });
 
   return (
@@ -38,11 +44,26 @@ const Poem: Component<GooPoem> = ({ log })=> {
         </defs>
       </svg>
 
-      <p class={styles.paragraph}>
-        <span class={`${styles.line} ${styles.previous} ${animate() ? styles.fadeOut : ''}`}>
+      <p 
+        class={styles.paragraph}
+        style={`
+          --animation-time: ${animationTime()}ms;
+        `}
+      >
+        <span 
+          class={`
+            ${styles.line} 
+            ${styles.previous} 
+            ${animate() ? styles.fadeOut : ''}
+          `}
+        >
           { previousLine() } 
         </span>
-        <span class={`${styles.line} ${styles.current} ${animate() ? styles.fadeIn : ''}`}>
+        <span class={`
+          ${styles.line} 
+          ${styles.current} 
+          ${animate() ? styles.fadeIn : ''}
+        `}>
           { line() } 
         </span>
       </p>

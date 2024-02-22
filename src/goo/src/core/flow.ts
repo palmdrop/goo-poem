@@ -38,7 +38,7 @@ export const flowLoop = (
     playing = true;
   }
 
-  const pause = () => {
+  const stop = () => {
     if(!playing) return;
 
     clearTimeout(timeout);
@@ -51,7 +51,7 @@ export const flowLoop = (
 
   return {
     play,
-    pause,
+    stop,
     isPlaying: () => playing
   };
 }

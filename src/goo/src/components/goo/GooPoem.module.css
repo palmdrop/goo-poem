@@ -57,15 +57,14 @@
 }
 
 .fadeIn {
-  animation: fadeIn 0.5s alternate;
+  animation: fadeIn var(--animation-time);
 }
 
 .fadeOut {
-  animation: fadeOut 0.5s alternate;
+  animation: fadeOut var(--animation-time);
 }
 
 .line {
   position: absolute;
-
   width: calc(100% - 2 * var(--padding));
 }
