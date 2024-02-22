@@ -13,7 +13,7 @@ const Poem: Component<GooPoem> = ({ log })=> {
   const [animationTime, setAnimationDelay] = createSignal(0);
 
   const { stop } = flowLoop(log, (action, delay) => {
-    const animationTime = delay - 100;
+    const animationTime = Math.min(delay, MAX_ANIMATION_TIME) * 0.9;
     setAnimate(true);
     setAnimationDelay(animationTime);
     setTimeout(() => {
