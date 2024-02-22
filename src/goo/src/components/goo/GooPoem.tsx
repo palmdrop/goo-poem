@@ -2,6 +2,8 @@ import { createSignal, type Component } from 'solid-js';
 import { GooPoem } from '../../types/goo-poem';
 import { flowLoop } from '../../core/flow';
 
+import styles from './GooPoem.module.css';
+
 const Poem: Component<GooPoem> = ({ log })=> {
   const [line, setLine] = createSignal('');
 
@@ -11,7 +13,7 @@ const Poem: Component<GooPoem> = ({ log })=> {
 
   return (
     <main>
-      <p>
+      <p class={styles.paragraph}>
         { line() } 
       </p>
     </main>
