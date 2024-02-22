@@ -2,7 +2,7 @@ import { createSignal, type Component } from 'solid-js';
 import { GooPoem } from '../../types/goo-poem';
 import { flowLoop } from '../../core/flow';
 
-const gooPoem: Component<GooPoem> = ({ log })=> {
+const Poem: Component<GooPoem> = ({ log })=> {
   const [line, setLine] = createSignal('');
 
   flowLoop(log, action => {
@@ -11,9 +11,11 @@ const gooPoem: Component<GooPoem> = ({ log })=> {
 
   return (
     <main>
-      { line() } 
+      <p>
+        { line() } 
+      </p>
     </main>
   );
 };
 
-export default gooPoem;
+export default Poem;
