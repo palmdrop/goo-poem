@@ -3,7 +3,7 @@ import { ChangeEvent, ChangeLog } from "../types/goo-poem";
 
 export const flowLoop = (
   log: ChangeLog,
-  callback: (action: ChangeEvent, index: number) => void,
+  callback: (action: ChangeEvent, delay: number, index: number) => void,
   playInitially = true
 ) => {
   let timeout: NodeJS.Timeout;
@@ -16,14 +16,15 @@ export const flowLoop = (
     }
 
     const event = log[index];
-    callback(event, index);
-    index++;
-
     const currentTime = new Date(event.timestamp).getTime();
-    const nextAction = log[index];
+    const nextAction = log[index + 1];
     const delay = !nextAction
       ? LOOP_ITERATION_DELAY
       : Math.min((new Date(nextAction.timestamp).getTime() - currentTime), MAX_CHANGE_DELAY);
+
+    callback(event, delay, index);
+
+    index++;
 
     if(playing) {
       timeout = setTimeout(loop, delay);
