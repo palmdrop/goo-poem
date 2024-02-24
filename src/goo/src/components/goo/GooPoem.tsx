@@ -1,5 +1,5 @@
 import { createSignal, type Component, onCleanup, createMemo } from 'solid-js';
-import { GooPoem } from '../../types/goo-poem';
+import { ChangeEvent, GooPoem } from '../../types/goo-poem';
 import { flowLoop } from '../../core/flow';
 
 import styles from './GooPoem.module.css';
@@ -12,11 +12,14 @@ const Poem: Component<GooPoem> = ({ log })=> {
 
   const [animate, setAnimate] = createSignal(false);
   const [animationTime, setAnimationDelay] = createSignal(0);
+  const [action, setAction] = createSignal<ChangeEvent | undefined>(undefined);
 
   const { stop } = flowLoop(log, (action, delay) => {
     const animationTime = Math.min(delay, MAX_ANIMATION_TIME) * 0.9;
     setAnimate(true);
     setAnimationDelay(animationTime);
+    setAction(action);
+
     setTimeout(() => {
       setAnimate(false);
     }, animationTime);
@@ -29,19 +32,55 @@ const Poem: Component<GooPoem> = ({ log })=> {
     stop();
   });
 
-  const renderLine = (line: string | undefined, which: 'current' | 'previous') => {
+  const renderLine = (lineToRender: string | undefined, which: 'current' | 'previous') => {
+    if(!lineToRender) return <></>
+
     const animation = which === 'current' ? styles.fadeIn : styles.fadeOut;
     const style = `${which === 'current' ? styles.current : styles.previous }`;
-    const shouldAnimate = animate();
 
-    if(!line) return <></>
-    return line.split("").map(character => (
-      <span
-        class={`${style} ${shouldAnimate ? animation : ''}`}
-      >
-        { character }
-      </span>
-    ))
+    const event = action();
+
+    let from: number;
+    let to: number;
+
+    // NOTE: At the moment, if length changes, I'm forced to animate everything after the change...
+    // NOTE: If I DO NOT render the previous element except for the thing that changed, then this can be avoided.
+    // NOTE: I only animate the change, hide the rest, and "slide" the moved text if needed.
+    switch(event?.type) {
+      case 'add': {
+        from = event.from!;
+        to = lineToRender.length;
+      } break;
+      case 'replace': {
+        const lengthChanged = lineToRender.length !== (which === 'current' ? previousLine()?.length : line()?.length);
+        if(which === 'current') {
+          from = event.currentFrom!;
+          to = lengthChanged ? lineToRender.length : event.currentTo!;
+        } else {
+          from = event.previousFrom!;
+          to = lengthChanged ? lineToRender.length : event.previousTo!;
+        }
+      } break;
+      case 'remove': {
+        from = event.from!;
+        to = lineToRender.length;
+      } break;
+      default: {
+        from = 0; 
+        to = line.length; 
+      }
+    }
+
+    return lineToRender.split("").map((character, i) => {
+      const shouldAnimate = animate() && i >= from && i < to;
+      return (
+        <span
+          class={`${style} ${shouldAnimate ? animation : ''}`}
+        >
+          { character }
+        </span>
+      );
+    })
   };
 
   return (
