@@ -49,16 +49,15 @@ const Poem: Component<GooPoem> = ({ log })=> {
     switch(event?.type) {
       case 'add': {
         from = event.from!;
-        to = lineToRender.length;
+        to = event.from! + event.addition?.length!;
       } break;
       case 'replace': {
-        const lengthChanged = lineToRender.length !== (which === 'current' ? previousLine()?.length : line()?.length);
         if(which === 'current') {
           from = event.currentFrom!;
-          to = lengthChanged ? lineToRender.length : event.currentTo!;
+          to = event.currentTo!;
         } else {
           from = event.previousFrom!;
-          to = lengthChanged ? lineToRender.length : event.previousTo!;
+          to = event.previousTo!;
         }
       } break;
       case 'remove': {
