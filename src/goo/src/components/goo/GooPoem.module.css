@@ -2,11 +2,13 @@
   0% {
     filter: blur(var(--max-blur));
     opacity: 0;
+    width: 0%;
   }
 
   100% {
     filter: blur(0px);
     opacity: 1;
+    width: 100%;
   }
 }
 
@@ -47,6 +49,10 @@
   filter: url(#threshold) blur(0.6px);
 
   color: black;
+}
+
+.character {
+  display: inline-block;
 }
 
 .previous {

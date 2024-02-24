@@ -1,4 +1,4 @@
-import { createSignal, type Component, onCleanup, createMemo } from 'solid-js';
+import { createSignal, type Component, onCleanup, createMemo, Index } from 'solid-js';
 import { ChangeEvent, GooPoem } from '../../types/goo-poem';
 import { flowLoop } from '../../core/flow';
 
@@ -43,9 +43,9 @@ const Poem: Component<GooPoem> = ({ log })=> {
     let from: number;
     let to: number;
 
-    // NOTE: At the moment, if length changes, I'm forced to animate everything after the change...
-    // NOTE: If I DO NOT render the previous element except for the thing that changed, then this can be avoided.
-    // NOTE: I only animate the change, hide the rest, and "slide" the moved text if needed.
+    // NOTE: SOLUTION: split in 3 pieces! before, change, and after. Each element is static, but content changes (use <Index>) 
+    // NOTE: Let "change"  width grow/shrink depending on content. The rest will follow
+
     switch(event?.type) {
       case 'add': {
         from = event.from!;
@@ -70,17 +70,25 @@ const Poem: Component<GooPoem> = ({ log })=> {
       }
     }
 
-    return lineToRender.split("").map((character, i) => {
-      const shouldAnimate = animate() && i >= from && i < to;
-      return (
-        <span
-          class={`${style} ${shouldAnimate ? animation : ''}`}
-        >
-          { character }
-        </span>
-      );
-    })
-  };
+    const leading = Math.max(from - 1, 0);
+    const trailing = Math.min(to, line().length);
+
+    return <Index each={lineToRender.split("")}>{
+      (character, i) => {
+        const shouldAnimate = animate() && i >= from && i < to;
+        return (
+          <span
+            class={`${styles.character} ${style} ${shouldAnimate ? animation : ''}`}
+            style={
+              `background-color: ${leading === i ? 'red' : trailing === i ? 'blue' : 'unset'}`
+            }
+          >
+            { character() }
+          </span>
+        )
+      }
+    }</Index>
+  }
 
   return (
     <main class={styles.container}>
