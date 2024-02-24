@@ -1,9 +1,10 @@
-import { createSignal, type Component, createMemo, onCleanup } from 'solid-js';
+import { createSignal, type Component, onCleanup } from 'solid-js';
 import { GooPoem } from '../../types/goo-poem';
 import { flowLoop } from '../../core/flow';
 
 import styles from './GooPoem.module.css';
 import { MAX_ANIMATION_TIME } from '../../constants';
+import { Filter } from './Filter';
 
 const Poem: Component<GooPoem> = ({ log })=> {
   const [previousLine, setPreviousLine] = createSignal<string | undefined>(undefined);
@@ -30,19 +31,7 @@ const Poem: Component<GooPoem> = ({ log })=> {
 
   return (
     <main class={styles.container}>
-      <svg id="filters" style="position: absolute">
-        <defs>
-          <filter id="threshold">
-            <feColorMatrix in="SourceGraphic"
-              type="matrix"
-              values="1 0 0 0 0
-                      0 1 0 0 0
-                      0 0 1 0 0
-                      0 0 0 255 -50" 
-            />
-          </filter>
-        </defs>
-      </svg>
+      <Filter />
 
       <p 
         class={styles.paragraph}
