@@ -25,7 +25,7 @@
 .container {
   --padding: 2em;
 
-  --max-blur: 10px;
+  --max-blur: 20px;
 }
 
 .paragraph  {
@@ -45,6 +45,8 @@
   font-style: bold;
 
   filter: url(#threshold) blur(0.6px);
+
+  color: black;
 }
 
 .previous {
