@@ -7,88 +7,104 @@ import { MAX_ANIMATION_TIME } from '../../constants';
 import { Filter } from './Filter';
 
 const Poem: Component<GooPoem> = ({ log })=> {
-  const [previousLine, setPreviousLine] = createSignal<string | undefined>(undefined);
   const [line, setLine] = createSignal<string>('');
+  const [before, setBefore] = createSignal<string>('');
+  const [after, setAfter] = createSignal<string>('');
+  const [change, setChange] = createSignal<string>('');
+
+  const [changeOverlap, setChangeOverlap] = createSignal<string>('');
 
   const [animate, setAnimate] = createSignal(false);
   const [animationTime, setAnimationDelay] = createSignal(0);
-  const [action, setAction] = createSignal<ChangeEvent | undefined>(undefined);
 
-  const { stop } = flowLoop(log, (action, delay) => {
+  const getChangeRangeFromEvent = (event: ChangeEvent) => {
+    let from: number; 
+    let to: number;
+    let previousFrom: number; 
+    let previousTo: number;
+    switch(event?.type) {
+      case 'add': {
+        from = event.from!;
+        to = event.from! + event.addition?.length!;
+        previousFrom = from;
+        previousTo = to;
+      } break;
+      case 'replace': {
+        from = event.currentFrom!;
+        to = event.currentTo!;
+        previousFrom = event.previousFrom!;
+        previousTo = event.previousTo!;
+      } break;
+      case 'remove': {
+        from = event.from!;
+        to = (from + event.removed?.length!);
+        previousFrom = from;
+        previousTo = to;
+      } break;
+      default: {
+        from = 0; 
+        to = event.value.length; 
+        previousFrom = from;
+        previousTo = to;
+      }
+    }
+
+    return {
+      from,
+      to,
+      previousFrom,
+      previousTo
+    }
+  }
+
+  const { stop } = flowLoop(log, (action, delay, index) => {
+    const newLine = action.value;
     const animationTime = Math.min(delay, MAX_ANIMATION_TIME) * 0.9;
+
     setAnimate(true);
     setAnimationDelay(animationTime);
-    setAction(action);
 
     setTimeout(() => {
       setAnimate(false);
     }, animationTime);
 
-    setPreviousLine(line());
-    setLine(action.value);
+    if(index === 0) {
+      setLine(newLine);
+      setBefore(newLine);
+
+      setChange("");
+      setAfter("");
+      setChangeOverlap("");
+
+      return;
+    }
+
+    const {
+      from,
+      to,
+      previousFrom,
+      previousTo
+    } = getChangeRangeFromEvent(action);
+
+    const change = newLine.slice(from, to);
+
+    const startsWithSpace = change.at(0) === " ";
+    const endsWithSpace = change.at(-1) === " ";
+
+    const before = newLine.slice(0, from + (startsWithSpace ? 1 : 0));
+    const after = newLine.slice(to - (endsWithSpace ? 1 : 0));
+
+    const overlap = line().slice(previousFrom, previousTo);
+
+    setBefore(before);
+    setChange(change.trim());
+    setAfter(after);
+    setChangeOverlap(overlap);
   });
 
   onCleanup(() => {
     stop();
   });
-
-  const renderLine = (lineToRender: string | undefined, which: 'current' | 'previous') => {
-    if(!lineToRender) return <></>
-
-    const animation = which === 'current' ? styles.fadeIn : styles.fadeOut;
-    const style = `${which === 'current' ? styles.current : styles.previous }`;
-
-    const event = action();
-
-    let from: number;
-    let to: number;
-
-    // NOTE: SOLUTION: split in 3 pieces! before, change, and after. Each element is static, but content changes (use <Index>) 
-    // NOTE: Let "change"  width grow/shrink depending on content. The rest will follow
-
-    switch(event?.type) {
-      case 'add': {
-        from = event.from!;
-        to = event.from! + event.addition?.length!;
-      } break;
-      case 'replace': {
-        if(which === 'current') {
-          from = event.currentFrom!;
-          to = event.currentTo!;
-        } else {
-          from = event.previousFrom!;
-          to = event.previousTo!;
-        }
-      } break;
-      case 'remove': {
-        from = event.from!;
-        to = lineToRender.length;
-      } break;
-      default: {
-        from = 0; 
-        to = line.length; 
-      }
-    }
-
-    const leading = Math.max(from - 1, 0);
-    const trailing = Math.min(to, line().length);
-
-    return <Index each={lineToRender.split("")}>{
-      (character, i) => {
-        const shouldAnimate = animate() && i >= from && i < to;
-        return (
-          <span
-            class={`${styles.character} ${style} ${shouldAnimate ? animation : ''}`}
-            style={
-              `background-color: ${leading === i ? 'red' : trailing === i ? 'blue' : 'unset'}`
-            }
-          >
-            { character() }
-          </span>
-        )
-      }
-    }</Index>
-  }
 
   return (
     <main class={styles.container}>
@@ -100,12 +116,35 @@ const Poem: Component<GooPoem> = ({ log })=> {
         <span 
           class={styles.line}
         >
-          { renderLine(previousLine(), 'previous') } 
+          <span class={`${styles.current}`}>
+            { before() }
+          </span>
+          <span 
+            style={`--width: ${change().length}ch;`}
+            class={`${styles.current} ${styles.change} ${animate() ? styles.fadeIn : ''}`}
+          >
+            { change() }
+          </span>
+          <span class={`${styles.current}`}>
+            { after() }
+          </span>
         </span>
         <span 
           class={styles.line}
         >
-          { renderLine(line(), 'current') } 
+          { /* Rendering a duplicate of before is only needed to perfectly align the overlapping element */ }
+          <span class={`${styles.previous}`}>
+            { before() }
+          </span>
+          <span 
+            style={`--width: ${change().length}ch;`}
+            class={`${styles.previous} ${styles.change} ${animate() ? styles.fadeOut : ''}`}
+          >
+            { changeOverlap() }
+          </span>
+          <span class={`${styles.previous}`}>
+            { after() }
+          </span>
         </span>
       </p>
     </main>
