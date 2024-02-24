@@ -1,4 +1,4 @@
-import { createSignal, type Component, onCleanup } from 'solid-js';
+import { createSignal, type Component, onCleanup, createMemo } from 'solid-js';
 import { GooPoem } from '../../types/goo-poem';
 import { flowLoop } from '../../core/flow';
 
@@ -29,31 +29,37 @@ const Poem: Component<GooPoem> = ({ log })=> {
     stop();
   });
 
+  const renderLine = (line: string | undefined, which: 'current' | 'previous') => {
+    const animation = which === 'current' ? styles.fadeIn : styles.fadeOut;
+    const style = `${which === 'current' ? styles.current : styles.previous }`;
+    const shouldAnimate = animate();
+
+    if(!line) return <></>
+    return line.split("").map(character => (
+      <span
+        class={`${style} ${shouldAnimate ? animation : ''}`}
+      >
+        { character }
+      </span>
+    ))
+  };
+
   return (
     <main class={styles.container}>
       <Filter />
-
       <p 
         class={styles.paragraph}
-        style={`
-          --animation-time: ${animationTime()}ms;
-        `}
+        style={`--animation-time: ${animationTime()}ms;`}
       >
         <span 
-          class={`
-            ${styles.line} 
-            ${styles.previous} 
-            ${animate() ? styles.fadeOut : ''}
-          `}
+          class={styles.line}
         >
-          { previousLine() } 
+          { renderLine(previousLine(), 'previous') } 
         </span>
-        <span class={`
-          ${styles.line} 
-          ${styles.current} 
-          ${animate() ? styles.fadeIn : ''}
-        `}>
-          { line() } 
+        <span 
+          class={styles.line}
+        >
+          { renderLine(line(), 'current') } 
         </span>
       </p>
     </main>
