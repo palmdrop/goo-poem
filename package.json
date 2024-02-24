@@ -7,6 +7,7 @@
     "dev": "bash ./scripts/start.sh",
     "dev:client": "vite",
     "dev:server": "nodemon --watch 'src/server/**/*' -e ts --exec tsx ./src/server/index.ts",
+    "goo": "npm run dev --prefix ./src/goo/",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
