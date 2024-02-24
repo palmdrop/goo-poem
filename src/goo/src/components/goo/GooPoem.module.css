@@ -79,5 +79,5 @@
   max-width: 100%;
   display: inline-block;
   white-space: nowrap;
-  transition: width 1s;
+  transition: width var(--animation-time) cubic-bezier(0.25, 1, 0.5, 1);
 }

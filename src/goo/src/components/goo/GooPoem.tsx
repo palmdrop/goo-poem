@@ -142,9 +142,6 @@ const Poem: Component<GooPoem> = ({ log })=> {
           >
             { changeOverlap() }
           </span>
-          <span class={`${styles.previous}`}>
-            { after() }
-          </span>
         </span>
       </p>
     </main>
