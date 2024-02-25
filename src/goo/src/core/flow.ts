@@ -1,5 +1,5 @@
 import { LOOP_ITERATION_DELAY, MAX_CHANGE_DELAY } from "../constants";
-import { ChangeEvent, ChangeLog } from "../types/goo-poem";
+import { ChangeEvent, ChangeLog } from "../types/poem";
 
 export const flowLoop = (
   log: ChangeLog,

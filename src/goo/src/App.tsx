@@ -1,11 +1,30 @@
-import type { Component } from 'solid-js';
+import { onCleanup, type Component, createSignal, Show } from 'solid-js';
 import data from '../data.json';
-import GooPoem from './components/goo/GooPoem';
+import Poem from './components/poem/Poem';
+import { flowLoop } from './core/flow';
+import { ChangeEventData } from './types/poem';
+
+const { log } = data;
 
 const App: Component = () => {
+  const [data, setData] = createSignal<ChangeEventData>();
+
+  const { stop } = flowLoop(log, (action, delay, index) => {
+    setData({ action, delay, index });
+  });
+
+  onCleanup(() => {
+    stop();
+  });
+
   return (
     <main>
-      <GooPoem {...data} />
+      <Show
+        when={data()}
+        fallback={<>loading...</>}
+      >
+        <Poem {...data()!} />
+      </Show>
     </main>
   );
 };

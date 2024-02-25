@@ -1,12 +1,51 @@
-import { createSignal, type Component, onCleanup, createMemo, Index } from 'solid-js';
-import { ChangeEvent, GooPoem } from '../../types/goo-poem';
-import { flowLoop } from '../../core/flow';
+import { createSignal, type Component, createEffect } from 'solid-js';
+import { ChangeEvent, ChangeEventData } from '../../types/poem';
 
-import styles from './GooPoem.module.css';
+import styles from './Poem.module.css';
 import { MAX_ANIMATION_TIME } from '../../constants';
-import { Filter } from './Filter';
+import { Filter } from '../filters/MorphFilter';
 
-const Poem: Component<GooPoem> = ({ log })=> {
+const getChangeRangeFromEvent = (event: ChangeEvent) => {
+  let from: number; 
+  let to: number;
+  let previousFrom: number; 
+  let previousTo: number;
+  switch(event?.type) {
+    case 'add': {
+      from = event.from!;
+      to = event.from! + event.addition?.length!;
+      previousFrom = from;
+      previousTo = to;
+    } break;
+    case 'replace': {
+      from = event.currentFrom!;
+      to = event.currentTo!;
+      previousFrom = event.previousFrom!;
+      previousTo = event.previousTo!;
+    } break;
+    case 'remove': {
+      from = event.from!;
+      to = (from + event.removed?.length!);
+      previousFrom = from;
+      previousTo = to;
+    } break;
+    default: {
+      from = 0; 
+      to = event.value.length; 
+      previousFrom = from;
+      previousTo = to;
+    }
+  }
+
+  return {
+    from,
+    to,
+    previousFrom,
+    previousTo
+  }
+}
+
+const Poem: Component<ChangeEventData> = (props)=> {
   const [line, setLine] = createSignal<string>('');
   const [before, setBefore] = createSignal<string>('');
   const [after, setAfter] = createSignal<string>('');
@@ -17,47 +56,9 @@ const Poem: Component<GooPoem> = ({ log })=> {
   const [animate, setAnimate] = createSignal(false);
   const [animationTime, setAnimationDelay] = createSignal(0);
 
-  const getChangeRangeFromEvent = (event: ChangeEvent) => {
-    let from: number; 
-    let to: number;
-    let previousFrom: number; 
-    let previousTo: number;
-    switch(event?.type) {
-      case 'add': {
-        from = event.from!;
-        to = event.from! + event.addition?.length!;
-        previousFrom = from;
-        previousTo = to;
-      } break;
-      case 'replace': {
-        from = event.currentFrom!;
-        to = event.currentTo!;
-        previousFrom = event.previousFrom!;
-        previousTo = event.previousTo!;
-      } break;
-      case 'remove': {
-        from = event.from!;
-        to = (from + event.removed?.length!);
-        previousFrom = from;
-        previousTo = to;
-      } break;
-      default: {
-        from = 0; 
-        to = event.value.length; 
-        previousFrom = from;
-        previousTo = to;
-      }
-    }
 
-    return {
-      from,
-      to,
-      previousFrom,
-      previousTo
-    }
-  }
-
-  const { stop } = flowLoop(log, (action, delay, index) => {
+  createEffect(() => {
+    const { action, delay, index } = props;
     const newLine = action.value;
     const animationTime = Math.min(delay, MAX_ANIMATION_TIME) * 0.9;
 
@@ -102,12 +103,8 @@ const Poem: Component<GooPoem> = ({ log })=> {
     setChangeOverlap(overlap);
   });
 
-  onCleanup(() => {
-    stop();
-  });
-
   return (
-    <main class={styles.container}>
+    <div class={styles.container}>
       <Filter />
       <p 
         class={styles.paragraph}
@@ -144,7 +141,7 @@ const Poem: Component<GooPoem> = ({ log })=> {
           </span>
         </span>
       </p>
-    </main>
+    </div>
   );
 };
 

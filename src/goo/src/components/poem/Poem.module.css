@@ -4,6 +4,11 @@
     opacity: 0;
   }
 
+  50% {
+    filter: blur(calc(var(--max-blur) * 0.2));
+    opacity: 0.8;
+  }
+
   100% {
     filter: blur(0px);
     opacity: 1;
@@ -15,6 +20,12 @@
     filter: blur(0px);
     opacity: 1;
   }
+
+  50% {
+    filter: blur(calc(var(--max-blur) * 0.8));
+    opacity: 0.2;
+  }
+
 
   100% {
     filter: blur(var(--max-blur));
@@ -79,5 +90,5 @@
   max-width: 100%;
   display: inline-block;
   white-space: nowrap;
-  transition: width var(--animation-time) cubic-bezier(0.25, 1, 0.5, 1);
+  transition: width var(--animation-time) cubic-bezier(0.16, 1, 0.3, 1);
 }

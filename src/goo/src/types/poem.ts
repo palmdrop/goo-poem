@@ -6,3 +6,5 @@ type ArrayElement<ArrayType extends readonly unknown[]> =
 export type GooPoem = typeof data;
 export type ChangeLog = GooPoem['log'];
 export type ChangeEvent = ArrayElement<ChangeLog>;
+
+export type ChangeEventData = { action: ChangeEvent, delay: number, index: number };
