@@ -1,8 +1,11 @@
 import { onCleanup, type Component, createSignal, Show } from 'solid-js';
 import data from '../data.json';
-import Poem from './components/poem/Poem';
+import GooPoem from './components/poem/Poem';
 import { flowLoop } from './core/flow';
 import { ChangeEventData } from './types/poem';
+import { Progress } from './components/progress/Progress';
+
+import styles from './App.module.css';
 
 const { log } = data;
 
@@ -18,12 +21,17 @@ const App: Component = () => {
   });
 
   return (
-    <main>
+    <main class={styles.main}>
       <Show
         when={data()}
         fallback={<>loading...</>}
       >
-        <Poem {...data()!} />
+        <GooPoem {...data()!} />
+        <Progress 
+          delay={data()!.delay}
+          index={data()!.index} 
+          log={log} 
+        />
       </Show>
     </main>
   );

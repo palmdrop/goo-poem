@@ -1,5 +1,20 @@
-import { LOOP_ITERATION_DELAY, MAX_CHANGE_DELAY } from "../constants";
+import { LOOP_ITERATION_DELAY, MAX_CHANGE_DELAY, MIN_CHANGE_DELAY } from "../constants";
 import { ChangeEvent, ChangeLog } from "../types/poem";
+import { clamp } from "../utils";
+
+export const getDelay = (log: ChangeLog, index: number) => {
+  const event = log[index];
+  const currentTime = new Date(event.timestamp).getTime();
+  const nextAction = log[index + 1];
+  const delay = !nextAction
+    ? LOOP_ITERATION_DELAY
+    : clamp(new Date(nextAction.timestamp).getTime() - currentTime, 
+      MIN_CHANGE_DELAY, 
+      MAX_CHANGE_DELAY
+    );
+
+  return delay;
+}
 
 export const flowLoop = (
   log: ChangeLog,
@@ -16,12 +31,7 @@ export const flowLoop = (
     }
 
     const event = log[index];
-    const currentTime = new Date(event.timestamp).getTime();
-    const nextAction = log[index + 1];
-    const delay = !nextAction
-      ? LOOP_ITERATION_DELAY
-      : Math.min((new Date(nextAction.timestamp).getTime() - currentTime), MAX_CHANGE_DELAY);
-
+    const delay = getDelay(log, index);
     callback(event, delay, index);
 
     index++;
