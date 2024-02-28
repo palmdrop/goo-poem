@@ -72,11 +72,11 @@
 }
 
 .fadeIn {
-  animation: fadeIn var(--animation-time);
+  animation: fadeIn var(--animation-time) var(--timing-function);
 }
 
 .fadeOut {
-  animation: fadeOut var(--animation-time);
+  animation: fadeOut var(--animation-time) var(--timing-function);
 }
 
 .line {
@@ -89,5 +89,5 @@
   max-width: 100%;
   display: inline-block;
   white-space: nowrap;
-  transition: width var(--animation-time) cubic-bezier(0.16, 1, 0.3, 1);
+  transition: width var(--animation-time) var(--timing-function);
 }
