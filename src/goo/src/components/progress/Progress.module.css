@@ -9,7 +9,7 @@
   border: 2px solid black;
   width: 100%;
   height: 100%;
-  min-height: 10px;
+  min-height: 3px;
 
   border-radius: 10px;
   overflow: hidden;
@@ -44,8 +44,8 @@
   position: relative;
 
   left: 0.0px;
-  width: 14px;
-  height: 14px;
+  width: 10px;
+  height: 10px;
 
   border: 2px solid black;
 
@@ -53,6 +53,8 @@
   border-radius: 100%;
 
   transition: var(--delay) var(--timing-function);
+
+  cursor: pointer;
 }
 
 .button::after {
@@ -90,6 +92,10 @@
   transform: translate(-50%, -50%);
 
   background-color: white;
+}
+
+.button:hover {
+  filter: invert(100%);
 }
 
 .line {

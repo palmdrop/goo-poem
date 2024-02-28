@@ -41,6 +41,10 @@ export const flowLoop = (
     }
   };
 
+  if(playInitially) {
+    loop();
+  }
+
   const play = () => {
     if(playing) return;
 
@@ -55,13 +59,20 @@ export const flowLoop = (
     playing = false;
   }
 
-  if(playInitially) {
+  const isPlaying = () => playing;
+
+  const setIndex = (newIndex: number) => {
+    index = clamp(newIndex, 0, log.length - 1);
+    if(!playing) return;
+
+    clearTimeout(timeout);
     loop();
   }
 
   return {
     play,
     stop,
-    isPlaying: () => playing
+    isPlaying,
+    setIndex
   };
 }

@@ -6,7 +6,12 @@ import { getDelay } from "../../core/flow";
 
 const padding = 0.01;
 
-export const Progress: Component<{ index: number, delay: number, log: ChangeLog }> = props => {
+export const Progress: Component<{ 
+  index: number, 
+  delay: number, 
+  log: ChangeLog,
+  onTimestepClick: (index: number) => void
+}> = props => {
   const durations = createMemo(() => {
     let accumulator = 0;
 
@@ -51,6 +56,7 @@ export const Progress: Component<{ index: number, delay: number, log: ChangeLog 
           >
             <button 
               class={styles.button}
+              onClick={() => props.onTimestepClick(i)}
             />
             <div class={styles.line}></div>
           </div>
