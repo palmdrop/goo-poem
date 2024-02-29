@@ -47,15 +47,25 @@ const getChangeRangeFromEvent = (event: ChangeEvent) => {
 
 const Poem: Component<ChangeEventData> = (props)=> {
   const [line, setLine] = createSignal<string>('');
+
   const [before, setBefore] = createSignal<string>('');
   const [after, setAfter] = createSignal<string>('');
-  const [change, setChange] = createSignal<string>('');
 
+  const [change, setChange] = createSignal<string>('');
+  const [changeWidth, setChangeWidth] = createSignal<string>('');
   const [changeOverlap, setChangeOverlap] = createSignal<string>('');
 
   const [animate, setAnimate] = createSignal(false);
   const [animationTime, setAnimationDelay] = createSignal(0);
 
+  const [testReference, setTestReference] = createSignal<HTMLSpanElement>();
+
+  const measureText = (text: string) => {
+    const span = testReference();
+    if(!span) return '0';
+    span.innerText = text;
+    return `${span.offsetWidth}px`;
+  }
 
   createEffect(() => {
     const { action, delay, index } = props;
@@ -76,6 +86,7 @@ const Poem: Component<ChangeEventData> = (props)=> {
       setChange("");
       setAfter("");
       setChangeOverlap("");
+      setChangeWidth("0");
 
       return;
     }
@@ -87,20 +98,29 @@ const Poem: Component<ChangeEventData> = (props)=> {
       previousTo
     } = getChangeRangeFromEvent(action);
 
-    const change = newLine.slice(from, to);
+    let change = newLine.slice(from, to);
 
     const startsWithSpace = change.at(0) === " ";
     const endsWithSpace = change.at(-1) === " ";
 
     const before = newLine.slice(0, from + (startsWithSpace ? 1 : 0));
     const after = newLine.slice(to - (endsWithSpace ? 1 : 0));
+    change = change.trim();
+    const changeWidth = measureText(change);
 
     const overlap = line().slice(previousFrom, previousTo);
 
     setBefore(before);
-    setChange(change.trim());
+    setChange(change);
+    setChangeWidth(changeWidth);
     setAfter(after);
     setChangeOverlap(overlap);
+
+    console.log({
+      before: `"${before}"`,
+      change: `"${change.trim()}"`,
+      after: `"${after}"`
+    })
   });
 
   return (
@@ -113,17 +133,23 @@ const Poem: Component<ChangeEventData> = (props)=> {
         <span 
           class={styles.line}
         >
-          <span class={`${styles.current}`}>
-            { before() }
-          </span>
           <span 
-            style={`--width: ${change().length}ch;`}
+            class={styles.current}
+            style={"visibility: hidden; position: absolute"}
+            ref={setTestReference}
+          >
+          </span>
+          <span class={`${styles.current}`}>
+            {before()}
+          </span>
+          <span
+            style={`--width: ${changeWidth()};`}
             class={`${styles.current} ${styles.change} ${animate() ? styles.fadeIn : ''}`}
           >
-            { change() }
+            {change()}
           </span>
           <span class={`${styles.current}`}>
-            { after() }
+            {after()}
           </span>
         </span>
         <span 
@@ -134,7 +160,6 @@ const Poem: Component<ChangeEventData> = (props)=> {
             { before() }
           </span>
           <span 
-            style={`--width: ${change().length}ch;`}
             class={`${styles.previous} ${styles.change} ${animate() ? styles.fadeOut : ''}`}
           >
             { changeOverlap() }

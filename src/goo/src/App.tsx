@@ -37,6 +37,9 @@ const App: Component = () => {
           log={log} 
           onTimestepClick={onTimestepClick}
         />
+        <button onClick={() => stop()}>
+          stop
+        </button>
       </Show>
     </main>
   );

@@ -51,8 +51,7 @@
   font-size: 2.5rem;
   line-height: 1.0em;
 
-  font-family: monospace;
-  font-style: bold;
+  font-family: Wonder;
 
   filter: url(#threshold) blur(0.6px);
 
