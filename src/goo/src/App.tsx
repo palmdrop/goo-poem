@@ -26,21 +26,23 @@ const App: Component = () => {
 
   return (
     <main class={styles.main}>
-      <Show
-        when={data()}
-        fallback={<>loading...</>}
-      >
-        <GooPoem {...data()!} />
-        <Progress 
-          delay={data()!.delay}
-          index={data()!.index} 
-          log={log} 
-          onTimestepClick={onTimestepClick}
-        />
-        <button onClick={() => stop()}>
-          stop
-        </button>
-      </Show>
+      <div class={styles.container}>
+        <Show
+          when={data()}
+          fallback={<>loading...</>}
+        >
+          <GooPoem {...data()!} />
+          <Progress 
+            delay={data()!.delay}
+            index={data()!.index} 
+            log={log} 
+            onTimestepClick={onTimestepClick}
+          />
+          <button onClick={() => stop()}>
+            stop
+          </button>
+        </Show>
+      </div>
     </main>
   );
 };

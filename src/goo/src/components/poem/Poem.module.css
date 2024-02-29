@@ -35,27 +35,33 @@
 
 .container {
   --padding: 2em;
-  --max-blur: 20px;
+
+  width: 100%;
+  height: 100%;
 }
 
 .paragraph  {
   position: relative;
   padding: var(--padding);
 
-  width: 1000px;
+  margin-bottom: 2em;
+
+  width: var(--goo-width);
   max-width: 100vw;
 
-  height: 200px;
+  height: var(--goo-height);
   max-height: 100vh;
 
-  font-size: 2.5rem;
-  line-height: 1.0em;
+  font-size: var(--font-size);
+  border-radius: var(--border-radius);
 
-  font-family: Wonder;
+  font-family: var(--font-family);
 
   filter: url(#threshold) blur(0.6px);
 
-  color: black;
+  color: var(--fg);
+
+  border: 5px double var(--fg);
 }
 
 .character {

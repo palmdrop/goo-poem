@@ -24,8 +24,13 @@ export const Progress: Component<{
 
   const completeDuration = createMemo(() => durations().at(-1)!);
 
-  const getProgress = (index: number) => {
-    return padding + (durations()[index] / completeDuration()) * (1 - 2 * padding);
+  const getProgress = (index: number, padded = false) => {
+    const actualProgress = durations()[index] / completeDuration();
+    if(!padded) return actualProgress;
+    
+    if(index === 0) return padding + actualProgress;
+    if(index === props.log.length - 1) return actualProgress - padding;
+    return actualProgress;
   }
 
   const progress = createMemo(
@@ -46,7 +51,7 @@ export const Progress: Component<{
       <Index
         each={props.log}
       >{(_, i) => {
-        const progress = getProgress(i);
+        const progress = getProgress(i, true);
         return (
           <div
             class={`${styles.indicator} ${i <= props.index ? styles.passed : ''}`}
