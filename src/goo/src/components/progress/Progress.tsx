@@ -59,11 +59,11 @@ export const Progress: Component<{
               --progress: ${progress};
             `}
           >
+            <div class={styles.line}></div>
             <button 
               class={styles.button}
               onClick={() => props.onTimestepClick(i)}
             />
-            <div class={styles.line}></div>
           </div>
         );
       }}</Index>
