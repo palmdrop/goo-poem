@@ -37,10 +37,13 @@
   --padding: 2em;
   width: 100%;
 
+  /*
   border: 4px double var(--fg);
+  */
   height: var(--goo-height);
 
   border-radius: var(--border-radius);
+
 }
 
 .paragraph  {
@@ -87,6 +90,8 @@
 .line {
   position: absolute;
   width: calc(100% - 2 * var(--padding));
+
+  text-align: center;
 }
 
 .change {
