@@ -44,7 +44,7 @@
 
   border-top: 1px solid var(--fg);
   padding-top: 0.5em;
-  padding-bottom: 0.0em;
+  padding-bottom: 0.5em;
 }
 
 .infoLeft {
@@ -119,7 +119,7 @@
   margin-left: var(--margin);
   margin-right: var(--margin);
 
-  padding-top: 0.0em;
+  padding-top: 0.5em;
 }
 
 .controllerButton {

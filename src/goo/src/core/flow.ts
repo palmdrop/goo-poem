@@ -48,8 +48,8 @@ export const flowLoop = (
   const play = () => {
     if(playing) return;
 
-    loop();
     playing = true;
+    loop();
   }
 
   const stop = () => {
@@ -73,6 +73,7 @@ export const flowLoop = (
     play,
     stop,
     isPlaying,
-    setIndex
+    setIndex,
+    once: loop,
   };
 }

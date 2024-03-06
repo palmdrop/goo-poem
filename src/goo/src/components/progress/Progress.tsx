@@ -6,11 +6,14 @@ import { getDelay } from "../../core/flow";
 
 const padding = 0.01;
 
+// TODO: split into multiple components
 export const Progress: Component<{ 
   index: number, 
   delay: number, 
   log: ChangeLog,
   onTimestepClick: (index: number) => void
+  onTogglePlayClick: () => void,
+  playing: boolean
 }> = props => {
   const durations = createMemo(() => {
     let accumulator = 0;
@@ -70,7 +73,7 @@ export const Progress: Component<{
           {datePart1()}
         </span>
         <span class={styles.t}>
-          #{props.index + 1}.
+          {props.index + 1}.
         </span>
         <span class={styles.infoRight}>
           {datePart2()}
@@ -96,8 +99,11 @@ export const Progress: Component<{
         >
           {"➺"}
         </button>
-        <button class={styles.controllerButton}>
-          play
+        <button 
+          class={styles.controllerButton}
+          onClick={props.onTogglePlayClick}
+        >
+          { props.playing ? 'pause' : 'play' }
         </button>
         <button 
           class={`${styles.controllerButton} ${styles.toEndButton}`}

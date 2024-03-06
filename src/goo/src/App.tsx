@@ -11,13 +11,35 @@ const { log } = data;
 
 const App: Component = () => {
   const [data, setData] = createSignal<ChangeEventData>();
+  const [isPlaying, setIsPlaying] = createSignal(true);
 
-  const { stop, setIndex } = flowLoop(log, (action, delay, index) => {
+  const { stop, play, once, setIndex } = flowLoop(log, (action, delay, index) => {
     setData({ action, delay, index });
   });
 
-  const onTimestepClick = (index: number) => {
-    setIndex(index);
+  const moveToTimestep = (index: number) => {
+    if(index === data()?.index && !isPlaying()) {
+      togglePlay();
+    } else {
+      setIndex(index);
+      setIsPlaying(false)
+      stop();
+      once();
+    }
+  }
+
+  const togglePlay = () => {
+    setIsPlaying(previous => {
+      const isPlaying = !previous;
+
+      if(isPlaying) {
+        play();
+      } else {
+        stop();
+      }
+
+      return isPlaying;
+    });
   }
 
   onCleanup(() => {
@@ -36,7 +58,9 @@ const App: Component = () => {
             delay={data()!.delay}
             index={data()!.index} 
             log={log} 
-            onTimestepClick={onTimestepClick}
+            onTimestepClick={moveToTimestep}
+            onTogglePlayClick={togglePlay}
+            playing={isPlaying()}
           />
           { /* 
           <button onClick={() => stop()}>
