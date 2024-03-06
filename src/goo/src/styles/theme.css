@@ -1,16 +1,22 @@
 :root {
-  --width: 1000px;
+  --width: 700px;
   --goo-width: 100%;
-  --goo-height: 250px;
+  --goo-height: 150px;
+
+  --margin: 20px;
 
   --progress-width: 100%;
   --progress-bar-height: 20px;
   --progress-button-size: 14px;
 
+  --progress-orb-size: 70px;
+  --progress-orb-margin: 30px;
+
   --max-blur: 20px;
 
   --bg: rgb(220, 220, 220);
   --fg: rgb(24, 23, 23);
+  --accent: rgb(177, 159, 118);
 
   --font-size: 2.5rem;
   --border-radius: 7px;

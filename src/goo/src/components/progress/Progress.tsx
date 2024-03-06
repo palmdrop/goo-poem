@@ -37,17 +37,63 @@ export const Progress: Component<{
     () => getProgress(props.index)
   );
 
+  const event = createMemo(
+    () => props.log[props.index]
+  );
+
+  const datePart1 = createMemo(
+    () => {
+      const date = new Date(event().timestamp);
+      return date.toISOString().slice(0, 10);
+    }
+  );
+
+  const datePart2 = createMemo(
+    () => {
+      const date = new Date(event().timestamp);
+      return date.toISOString().slice(11);
+    }
+  );
+
   return (
     <div 
       class={styles.wrapper}
       style={`
         --progress: ${progress()};
+        --linear-progress: ${props.index / props.log.length};
         --delay: ${props.delay}ms;
+        --orbs: ${props.log.length};
       `}
     >
-      <div class={styles.progress}>
-        <div class={styles.bar} />
+      <div class={styles.info}>
+        <span class={styles.infoLeft}>
+          {datePart1()}
+        </span>
+        { /*
+        <span class={styles.indicator}>
+        </span>
+        */ }
+        <span class={styles.t}>
+          #{props.index + 1}.
+        </span>
+        <span class={styles.infoRight}>
+          {datePart2()}
+        </span>
       </div>
+      <div class={styles.progress}>
+        <div class={styles.orbContainer}>
+          <Index
+            each={props.log}
+          >{(_, i) => (
+              <button 
+                class={`${styles.orb} ${i === props.index ? styles.orbActive : ''}`}
+                onClick={() => props.onTimestepClick(i)}
+              >
+              </button>
+          )}</Index>
+        </div>
+      </div>
+      { /*
       <Index
         each={props.log}
       >{(_, i) => {
@@ -67,6 +113,7 @@ export const Progress: Component<{
           </div>
         );
       }}</Index>
+    */ }
     </div>
   )
 }

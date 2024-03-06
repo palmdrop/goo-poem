@@ -105,21 +105,23 @@ const Poem: Component<ChangeEventData> = (props)=> {
 
     const before = newLine.slice(0, from + (startsWithSpace ? 1 : 0));
     const after = newLine.slice(to - (endsWithSpace ? 1 : 0));
+
     change = change.trim();
     const changeWidth = measureText(change);
 
     const overlap = line().slice(previousFrom, previousTo);
 
     setBefore(before);
+
     setChange(change);
     setChangeWidth(changeWidth);
-    setAfter(after);
     setChangeOverlap(overlap);
 
+    setAfter(after);
+
     console.log({
-      before: `"${before}"`,
-      change: `"${change.trim()}"`,
-      after: `"${after}"`
+      change,
+      changeWidth
     })
   });
 
@@ -139,7 +141,7 @@ const Poem: Component<ChangeEventData> = (props)=> {
             ref={setTestReference}
           >
           </span>
-          <span class={`${styles.current}`}>
+          <span class={styles.current}>
             {before()}
           </span>
           <span
@@ -148,7 +150,7 @@ const Poem: Component<ChangeEventData> = (props)=> {
           >
             {change()}
           </span>
-          <span class={`${styles.current}`}>
+          <span class={styles.current}>
             {after()}
           </span>
         </span>
@@ -156,7 +158,7 @@ const Poem: Component<ChangeEventData> = (props)=> {
           class={styles.line}
         >
           { /* Rendering a duplicate of before is only needed to perfectly align the overlapping element */ }
-          <span class={`${styles.previous}`}>
+          <span class={styles.previous}>
             { before() }
           </span>
           <span 
