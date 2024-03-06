@@ -1,25 +1,24 @@
 :root {
-  --width: 700px;
+  --width: 1000px;
   --goo-width: 100%;
-  --goo-height: 150px;
+  --goo-height: 4em;
 
-  --margin: 20px;
+  --margin: 0.4em;
 
   --progress-width: 100%;
   --progress-bar-height: 20px;
   --progress-button-size: 14px;
 
-  --progress-orb-size: 70px;
-  --progress-orb-margin: 30px;
+  --progress-orb-size: 1.5em;
+  --progress-orb-margin: 0.5em;
 
-  --max-blur: 20px;
+  --max-blur: 0.3em;
 
   --bg: rgb(220, 220, 220);
   --fg: rgb(24, 23, 23);
   --accent: rgb(177, 159, 118);
 
-  --font-size: 2.5rem;
-  --border-radius: 7px;
+  --font-size: 3.5rem;
   --font-family: Wonder;
 
   --timing-function: cubic-bezier(0.33, 1, 0.68, 1)

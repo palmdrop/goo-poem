@@ -69,10 +69,6 @@ export const Progress: Component<{
         <span class={styles.infoLeft}>
           {datePart1()}
         </span>
-        { /*
-        <span class={styles.indicator}>
-        </span>
-        */ }
         <span class={styles.t}>
           #{props.index + 1}.
         </span>
@@ -93,27 +89,23 @@ export const Progress: Component<{
           )}</Index>
         </div>
       </div>
-      { /*
-      <Index
-        each={props.log}
-      >{(_, i) => {
-        const progress = getProgress(i, true);
-        return (
-          <div
-            class={`${styles.indicator} ${i <= props.index ? styles.passed : ''}`}
-            style={`
-              --progress: ${progress};
-            `}
-          >
-            <div class={styles.line}></div>
-            <button 
-              class={styles.button}
-              onClick={() => props.onTimestepClick(i)}
-            />
-          </div>
-        );
-      }}</Index>
-    */ }
+      <div class={styles.controller}>
+        <button 
+          class={`${styles.controllerButton} ${styles.toStartButton}`}
+          onClick={() => props.onTimestepClick(0)}
+        >
+          {"➺"}
+        </button>
+        <button class={styles.controllerButton}>
+          play
+        </button>
+        <button 
+          class={`${styles.controllerButton} ${styles.toEndButton}`}
+          onClick={() => props.onTimestepClick(props.log.length - 1)}
+        >
+          {"➺"}
+        </button>
+      </div>
     </div>
   )
 }

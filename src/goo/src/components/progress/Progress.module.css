@@ -39,41 +39,22 @@
 
   position: relative;
 
-  font-size: 2.3em;
-
   margin-left: var(--margin);
   margin-right: var(--margin);
 
   border-top: 1px solid var(--fg);
-  padding-top: 1em;
-  padding-bottom: 0.5em;
-}
-
-.infoLeft, .infoRight {
+  padding-top: 0.5em;
+  padding-bottom: 0.0em;
 }
 
 .infoLeft {
   width: 100%;
-  padding-right: 0.5em;
   text-align: left;
 }
 
 .infoRight {
   width: 100%;
-  padding-left: 0.5em;
   text-align: right;
-}
-
-.indicator {
-  display: block;
-  position: absolute;
-  height: calc(100% + 80px);
-
-  margin: 0em 1em;
-
-  box-shadow: 0px 0px 5px 2px var(--bg);
-
-  z-index: 1;
 }
 
 .orbContainer {
@@ -128,4 +109,33 @@
 
 .t {
   z-index: 2;
+}
+
+.controller {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-left: var(--margin);
+  margin-right: var(--margin);
+
+  padding-top: 0.0em;
+}
+
+.controllerButton {
+  text-align: right;
+
+  cursor: pointer;
+
+  text-shadow: 0px 0px 0px var(--bg);
+  transition: 0.3s;
+}
+
+.controllerButton:hover {
+  color: var(--bg);
+  text-shadow: 0px 0px 10px var(--fg);
+}
+
+.toStartButton {
+  transform: scaleX(-1);
 }
