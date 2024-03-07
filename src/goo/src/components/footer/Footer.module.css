@@ -1,0 +1,25 @@
+.footer {
+  /* NOTE: why is this needed? */
+  width: calc(100% - 2 * var(--margin));
+  display: flex;
+  justify-content: space-between;
+
+  border-top: 1px solid var(--fg);
+
+  margin-top: var(--margin);
+  padding-top: var(--margin);
+}
+
+.link {
+  width: 100%;
+
+  font-style: italic;
+}
+
+.rightLink {
+  text-align: right;
+}
+
+.by {
+  display: inline-block;
+}

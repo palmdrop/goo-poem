@@ -6,6 +6,7 @@ import { ChangeEventData } from './types/poem';
 import { Progress } from './components/progress/Progress';
 
 import styles from './App.module.css';
+import { Footer } from './components/footer/Footer';
 
 const { log } = data;
 
@@ -66,6 +67,7 @@ const App: Component = () => {
             onTogglePlayClick={togglePlay}
             playing={isPlaying()}
           />
+          <Footer />
         </Show>
       </div>
     </main>

@@ -126,7 +126,7 @@ const Poem: Component<ChangeEventData> = (props)=> {
   });
 
   return (
-    <div class={styles.container}>
+    <main class={styles.container}>
       <Filter />
       <p 
         class={styles.paragraph}
@@ -168,7 +168,7 @@ const Poem: Component<ChangeEventData> = (props)=> {
           </span>
         </span>
       </p>
-    </div>
+    </main>
   );
 };
 
