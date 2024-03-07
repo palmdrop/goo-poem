@@ -1,0 +1,28 @@
+.controller {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-left: var(--margin);
+  margin-right: var(--margin);
+
+  padding-top: 0.5em;
+}
+
+.controllerButton {
+  text-align: right;
+
+  cursor: pointer;
+
+  text-shadow: 0px 0px 0px var(--bg);
+  transition: 0.3s;
+}
+
+.controllerButton:hover {
+  color: var(--bg);
+  text-shadow: 0px 0px 10px var(--fg);
+}
+
+.toStartButton {
+  transform: scaleX(-1);
+}

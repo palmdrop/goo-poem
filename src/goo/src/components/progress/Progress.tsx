@@ -3,6 +3,9 @@ import { ChangeLog } from "../../types/poem";
 
 import styles from './Progress.module.css';
 import { getDelay } from "../../core/flow";
+import { Controller } from "../controller/Controller";
+import { TimeIndicator } from "./time-indicator/TimeIndicator";
+import { Orbs } from "./orbs/Orbs";
 
 const padding = 0.01;
 
@@ -44,14 +47,14 @@ export const Progress: Component<{
     () => props.log[props.index]
   );
 
-  const datePart1 = createMemo(
+  const date = createMemo(
     () => {
       const date = new Date(event().timestamp);
       return date.toISOString().slice(0, 10);
     }
   );
 
-  const datePart2 = createMemo(
+  const time = createMemo(
     () => {
       const date = new Date(event().timestamp);
       return date.toISOString().slice(11);
@@ -68,50 +71,22 @@ export const Progress: Component<{
         --orbs: ${props.log.length};
       `}
     >
-      <div class={styles.info}>
-        <span class={styles.infoLeft}>
-          {datePart1()}
-        </span>
-        <span class={styles.t}>
-          {props.index + 1}.
-        </span>
-        <span class={styles.infoRight}>
-          {datePart2()}
-        </span>
-      </div>
-      <div class={styles.progress}>
-        <div class={styles.orbContainer}>
-          <Index
-            each={props.log}
-          >{(_, i) => (
-              <button 
-                class={`${styles.orb} ${i === props.index ? styles.orbActive : ''}`}
-                onClick={() => props.onTimestepClick(i)}
-              >
-              </button>
-          )}</Index>
-        </div>
-      </div>
-      <div class={styles.controller}>
-        <button 
-          class={`${styles.controllerButton} ${styles.toStartButton}`}
-          onClick={() => props.onTimestepClick(0)}
-        >
-          {"➺"}
-        </button>
-        <button 
-          class={styles.controllerButton}
-          onClick={props.onTogglePlayClick}
-        >
-          { props.playing ? 'pause' : 'play' }
-        </button>
-        <button 
-          class={`${styles.controllerButton} ${styles.toEndButton}`}
-          onClick={() => props.onTimestepClick(props.log.length - 1)}
-        >
-          {"➺"}
-        </button>
-      </div>
+      <TimeIndicator 
+        date={date()}
+        time={time()}
+        index={props.index}
+      />
+      <Orbs 
+        log={props.log}
+        index={props.index}
+        onTimestepClick={props.onTimestepClick}
+      />
+      <Controller
+        onTimestepClick={props.onTimestepClick}
+        onTogglePlayClick={props.onTogglePlayClick}
+        playing={props.playing}
+        log={props.log}
+      />
     </div>
   )
 }

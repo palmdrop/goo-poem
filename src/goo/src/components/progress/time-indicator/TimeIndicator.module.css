@@ -1,0 +1,28 @@
+.info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  position: relative;
+
+  margin-left: var(--margin);
+  margin-right: var(--margin);
+
+  border-top: 1px solid var(--fg);
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.infoLeft {
+  width: 100%;
+  text-align: left;
+}
+
+.infoRight {
+  width: 100%;
+  text-align: right;
+}
+
+.t {
+  z-index: 2;
+}

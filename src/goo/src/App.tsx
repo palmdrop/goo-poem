@@ -18,12 +18,16 @@ const App: Component = () => {
   });
 
   const moveToTimestep = (index: number) => {
+    setIndex(index);
     if(index === data()?.index && !isPlaying()) {
       togglePlay();
-    } else {
-      setIndex(index);
-      setIsPlaying(false)
+      return;
+    } 
+    
+    if (isPlaying()) {
+      setIsPlaying(false);
       stop();
+    } else {
       once();
     }
   }
@@ -62,11 +66,6 @@ const App: Component = () => {
             onTogglePlayClick={togglePlay}
             playing={isPlaying()}
           />
-          { /* 
-          <button onClick={() => stop()}>
-            stop
-          </button>
-          */ }
         </Show>
       </div>
     </main>
