@@ -5,18 +5,17 @@ import styles from './Footer.module.css';
 export const Footer: Component<{}> = props => {
   return (
     <footer class={styles.footer}>
-      <a
-        href=""
-        class={`${styles.link} ${styles.leftLink}`}
+      <button
+        class={`hoverable ${styles.link} ${styles.leftLink}`}
       >
         goo poem (?)
-      </a>
+      </button>
       <span class={styles.by}>by</span>
       <a
-        href="https://palmdrop.site"
+        href="https://palmdrop.site/nodes/about"
         target="_blank"
         rel="noreferrer noopener"
-        class={`${styles.link} ${styles.rightLink}`}
+        class={`hoverable ${styles.link} ${styles.rightLink}`}
       >
         palmdrop (!)
       </a>

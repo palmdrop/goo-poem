@@ -3,6 +3,19 @@
   font-size: var(--font-size);
 }
 
+.hoverable {
+  color: var(--fg);
+  text-shadow: 0px 0px 0px var(--bg);
+  transition: 0.3s;
+
+  cursor: pointer;
+}
+
+.hoverable:hover {
+  color: var(--bg);
+  text-shadow: 0px 0px 10px var(--fg);
+}
+
 /*
 div {
   border: 1px solid rgba(128, 128, 128, 0.33);

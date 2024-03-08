@@ -11,19 +11,19 @@ export const Controller: Component<{
   return (
     <div class={styles.controller}>
       <button 
-        class={`${styles.controllerButton} ${styles.toStartButton}`}
+        class={`hoverable ${styles.controllerButton} ${styles.toStartButton}`}
         onClick={() => props.onTimestepClick(0)}
       >
         {"➺"}
       </button>
       <button 
-        class={styles.controllerButton}
+        class={`hoverable ${styles.controllerButton}`}
         onClick={props.onTogglePlayClick}
       >
         { props.playing ? 'pause' : 'play' }
       </button>
       <button 
-        class={`${styles.controllerButton} ${styles.toEndButton}`}
+        class={`hoverable ${styles.controllerButton} ${styles.toEndButton}`}
         onClick={() => props.onTimestepClick(props.log.length - 1)}
       >
         {"➺"}
