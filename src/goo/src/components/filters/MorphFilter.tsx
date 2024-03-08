@@ -1,5 +1,7 @@
 import { Component } from "solid-js";
 
+/* Kudos https://codepen.io/Valgo/pen/PowZaNY */
+
 export const Filter: Component = () => (
   <svg id="filters" style="position: absolute">
     <defs>

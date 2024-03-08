@@ -1,4 +1,4 @@
-.info {
+.container {
   width: 100vw;
   height: 100vh;
 
@@ -12,19 +12,18 @@
 
   z-index: 1;
 
-  font-size: 0.5em;
+  font-size: clamp(var(--min-font-size), 6vw, var(--max-font-size) * 0.5);
 
   backdrop-filter: blur(10px);
 }
 
-.section {
+.modal {
   max-width: 100%;
   max-height: 100%;
 
-  width: calc(var(--width) * 0.5);
+  width: calc(var(--width) * 0.6);
 
-  padding: 2em;
-  padding-top: 2em;
+  padding: clamp(1em, 10vw, 3em);
   position: relative;
 
   background-color: var(--bg);
@@ -62,4 +61,8 @@
 
 .link {
   font-style: italic;
+}
+
+.section:not(:last-child) {
+  padding-bottom: 0.5em;
 }
