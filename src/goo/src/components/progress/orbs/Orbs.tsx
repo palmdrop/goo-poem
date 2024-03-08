@@ -16,6 +16,7 @@ export const Orbs: Component<{
         >{(_, i) => (
             <button 
               class={`${styles.orb} ${i === props.index ? styles.orbActive : ''}`}
+              onKeyPress={event => event.stopPropagation()}
               onClick={() => props.onTimestepClick(i)}
             >
             </button>

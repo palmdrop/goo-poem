@@ -10,6 +10,7 @@ export const Footer: Component<{
       <button
         class={`hoverable ${styles.link} ${styles.leftLink}`}
         onClick={props.onToggleInfo}
+        onKeyPress={event => event.stopPropagation()}
       >
         goo poem (?)
       </button>

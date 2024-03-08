@@ -13,18 +13,21 @@ export const Controller: Component<{
       <button 
         class={`hoverable ${styles.controllerButton} ${styles.toStartButton}`}
         onClick={() => props.onTimestepClick(0)}
+        onKeyPress={event => event.stopPropagation()}
       >
         {"➺"}
       </button>
       <button 
         class={`hoverable ${styles.controllerButton}`}
         onClick={props.onTogglePlayClick}
+        onKeyPress={event => event.stopPropagation()}
       >
         { props.playing ? 'pause' : 'play' }
       </button>
       <button 
         class={`hoverable ${styles.controllerButton} ${styles.toEndButton}`}
         onClick={() => props.onTimestepClick(props.log.length - 1)}
+        onKeyPress={event => event.stopPropagation()}
       >
         {"➺"}
       </button>

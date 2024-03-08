@@ -16,6 +16,7 @@ export const Info: Component<{
         <button 
           class={`hoverable ${styles.closeButton}`}
           onClick={props.onClose}
+          onKeyPress={event => event.stopPropagation()}
         >
           X
         </button>
