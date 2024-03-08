@@ -118,11 +118,6 @@ const Poem: Component<ChangeEventData> = (props)=> {
     setChangeOverlap(overlap);
 
     setAfter(after);
-
-    console.log({
-      change,
-      changeWidth
-    })
   });
 
   return (

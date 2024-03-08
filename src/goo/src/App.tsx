@@ -1,4 +1,4 @@
-import { onCleanup, type Component, createSignal, Show } from 'solid-js';
+import { onCleanup, type Component, createSignal, Show, onMount } from 'solid-js';
 import data from '../data.json';
 import GooPoem from './components/poem/Poem';
 import { flowLoop } from './core/flow';
@@ -7,12 +7,14 @@ import { Progress } from './components/progress/Progress';
 
 import styles from './App.module.css';
 import { Footer } from './components/footer/Footer';
+import { Info } from './components/info/Info';
 
 const { log } = data;
 
 const App: Component = () => {
   const [data, setData] = createSignal<ChangeEventData>();
   const [isPlaying, setIsPlaying] = createSignal(true);
+  const [isInfoVisible, setIsInfoVisible] = createSignal(false);
 
   const { stop, play, once, setIndex } = flowLoop(log, (action, delay, index) => {
     setData({ action, delay, index });
@@ -47,8 +49,28 @@ const App: Component = () => {
     });
   }
 
+  const keyEventListener = (event: KeyboardEvent) => {
+    switch(event.key) {
+      case 'c':
+      case 'x':
+      case 'Enter':
+      case 'Escape': {
+        if(isInfoVisible()) setIsInfoVisible(false);
+      } break;
+      case ' ': {
+        togglePlay();
+      }
+    }
+  }
+
+  onMount(() => {
+    window.addEventListener('keypress', keyEventListener);
+  });
+
   onCleanup(() => {
     stop();
+
+    window.removeEventListener('keypress', keyEventListener);
   });
 
   return (
@@ -67,7 +89,14 @@ const App: Component = () => {
             onTogglePlayClick={togglePlay}
             playing={isPlaying()}
           />
-          <Footer />
+          <Footer 
+            onToggleInfo={() => setIsInfoVisible(infoVisible => !infoVisible)}
+          />
+          <Show 
+            when={isInfoVisible()}
+          >
+            <Info onClose={() => setIsInfoVisible(false)} />
+          </Show>
         </Show>
       </div>
     </main>

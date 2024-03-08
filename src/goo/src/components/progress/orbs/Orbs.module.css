@@ -14,7 +14,7 @@
   content: "";
   inset: -3px;
 
-  z-index: 9;
+  z-index: 1;
 
   box-shadow: inset 0px 0px calc(var(--margin) * 0.5) var(--margin) var(--bg);
   overflow: hidden;

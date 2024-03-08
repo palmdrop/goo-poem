@@ -12,7 +12,7 @@ export const TimeIndicator: Component<{
       <span class={styles.infoLeft}>
         {props.date}
       </span>
-      <span class={styles.t}>
+      <span>
         {props.index + 1}.
       </span>
       <span class={styles.infoRight}>

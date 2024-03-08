@@ -2,11 +2,14 @@ import { Component } from "solid-js";
 
 import styles from './Footer.module.css';
 
-export const Footer: Component<{}> = props => {
+export const Footer: Component<{
+  onToggleInfo: () => void
+}> = props => {
   return (
     <footer class={styles.footer}>
       <button
         class={`hoverable ${styles.link} ${styles.leftLink}`}
+        onClick={props.onToggleInfo}
       >
         goo poem (?)
       </button>

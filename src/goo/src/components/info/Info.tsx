@@ -1,0 +1,51 @@
+import { Component } from "solid-js";
+
+import styles from './Info.module.css';
+
+export const Info: Component<{
+  onClose: () => void
+}> = props => {
+  return (
+    <div class={styles.info}>
+      <section class={styles.section}>
+        <button 
+          class={`hoverable ${styles.closeButton}`}
+          onClick={props.onClose}
+        >
+          X
+        </button>
+        <h1 class={styles.heading}>
+          goo poem
+        </h1>
+        <p class={styles.paragraph}>
+          living poetry experiment
+        </p>
+        <p class={styles.paragraph}>
+          sliver of whatever
+        </p>
+        <p class={styles.paragraph}>
+          <span>by: </span>
+          <a
+            href="https://palmdrop.site/nodes/about"
+            class={`hoverable ${styles.link}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            palmdrop
+          </a>
+        </p>
+        <p class={styles.paragraph}>
+          <span>font: </span>
+          <a
+            href="https://www.clemencefontaine.fr/page/wonder.html"
+            class={`hoverable ${styles.link}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Wonder
+          </a>
+        </p>
+      </section>
+    </div>
+  );
+}
