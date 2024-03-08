@@ -74,7 +74,7 @@ const App: Component = () => {
   });
 
   return (
-    <main class={styles.main}>
+    <div class={styles.root}>
       <div class={styles.container}>
         <Show
           when={data()}
@@ -99,7 +99,7 @@ const App: Component = () => {
           </Show>
         </Show>
       </div>
-    </main>
+    </div>
   );
 };
 

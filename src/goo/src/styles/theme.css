@@ -19,6 +19,10 @@
   --accent: rgb(177, 159, 118);
 
   --font-size: 3.5rem;
+
+  --max-font-size: 3.5rem;
+  --min-font-size: 1.0rem;
+
   --font-family: Wonder;
 
   --timing-function: cubic-bezier(0.33, 1, 0.68, 1)

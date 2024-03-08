@@ -1,4 +1,4 @@
-import { Component } from "solid-js";
+import { Component, onCleanup } from "solid-js";
 
 import styles from './Info.module.css';
 
@@ -6,8 +6,13 @@ export const Info: Component<{
   onClose: () => void
 }> = props => {
   return (
-    <div class={styles.info}>
-      <section class={styles.section}>
+    <div class={styles.info}
+      onClick={props.onClose}
+    >
+      <section 
+        class={styles.section}
+        onClick={event => event.stopPropagation()}
+      >
         <button 
           class={`hoverable ${styles.closeButton}`}
           onClick={props.onClose}

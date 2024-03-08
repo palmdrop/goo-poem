@@ -1,4 +1,4 @@
-.main {
+.root {
   width: 100%;
   height: 100vh;
 
@@ -10,6 +10,13 @@
   font-family: var(--font-family);
 
   background-color: var(--bg);
+
+  /*
+  font-size: var(--font-size);
+  */
+  font-size: clamp(var(--min-font-size), 6vw, var(--max-font-size));
+
+  overflow: hidden;
 }
 
 .container {
@@ -18,6 +25,6 @@
   justify-content: center;
   flex-direction: column;
 
-  width: var(--width);
   max-width: 100vw;
+  width: var(--width);
 }

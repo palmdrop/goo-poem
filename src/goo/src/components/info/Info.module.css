@@ -2,8 +2,6 @@
   width: 100vw;
   height: 100vh;
 
-  background-color: var(--bg);
-
   position: fixed;
   top: 0;
   left: 0;
@@ -13,26 +11,32 @@
   justify-content: center;
 
   z-index: 1;
+
+  font-size: 0.5em;
+
+  backdrop-filter: blur(10px);
 }
 
 .section {
   max-width: 100%;
   max-height: 100%;
 
-  width: var(--width);
+  width: calc(var(--width) * 0.5);
 
-  padding: 1em;
+  padding: 2em;
   padding-top: 2em;
   position: relative;
 
-  /*
-  box-shadow: inset 0px 0px 20px var(--fg)
-  */
+  background-color: var(--bg);
+  box-shadow: 20px 20px 40px var(--fg);
+
+  border: 1px solid var(--fg);
 }
 
 .heading {
   font-size: 1em;
   padding-bottom: 0.5em;
+  margin-bottom: 0.5em;
 
   font-style: italic;
   text-transform: uppercase;
@@ -41,6 +45,8 @@
   text-shadow: 
     0px 0px 1px var(--bg),
     0px 0px 8px var(--fg);
+
+  border-bottom: 1px solid var(--fg);
 }
 
 .paragraph {
@@ -50,7 +56,7 @@
 .closeButton {
   position: absolute;
 
-  right: 1em;
+  right: 2em;
   top: 1em;
 }
 
