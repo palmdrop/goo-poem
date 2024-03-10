@@ -25,25 +25,25 @@ export const Info: Component<{
             goo poem
           </h1>
           <p class={styles.paragraph}>
-            Telephone whisper poem,
+            Telephone whisper game,
           </p>
           <p class={styles.paragraph}>
-            a placid association chain,
+            placid association chain,
           </p>
           <p class={styles.paragraph}>
-            or evergreen micro-narrative.
+            evergreen web experiment.
           </p>
         </section>
         <section class={styles.section}>
           <p class={styles.paragraph}>
             <span>by: </span>
             <a
-              href="https://palmdrop.site/nodes/about"
+              href="https://palmdrop.site/"
               class={`hoverable ${styles.link}`}
               target="_blank"
               rel="noopener noreferrer"
             >
-              palmdrop
+              palmdrop ➺
             </a>
           </p>
           <p class={styles.paragraph}>
@@ -54,7 +54,7 @@ export const Info: Component<{
               target="_blank"
               rel="noopener noreferrer"
             >
-              Wonder
+              Wonder ➺
             </a>
           </p>
         </section>
