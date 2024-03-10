@@ -81,7 +81,7 @@ const App: Component = () => {
 
   createEffect(() => {
     const poemNumber = (data()?.index ?? 0) + 1;
-    document.title = `(${poemNumber}) Goo Poem | Goo Poem`;
+    document.title = `(${poemNumber}) ${data()?.action?.value.slice(0, 25) ?? 'Goo poem'}... | Goo Poem`;
     window.location.hash = `${poemNumber}`;
   });
 
