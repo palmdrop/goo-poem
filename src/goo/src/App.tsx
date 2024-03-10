@@ -1,4 +1,4 @@
-import { onCleanup, type Component, createSignal, Show, onMount } from 'solid-js';
+import { onCleanup, type Component, createSignal, Show, onMount, createEffect } from 'solid-js';
 import data from '../data.json';
 import GooPoem from './components/poem/Poem';
 import { flowLoop } from './core/flow';
@@ -65,12 +65,24 @@ const App: Component = () => {
 
   onMount(() => {
     window.addEventListener('keypress', keyEventListener);
+    const hash = window.location.hash.slice(1);
+    const poemNumber = isNaN(Number(hash))
+      ? 1
+      : Number(hash);
+
+    if(poemNumber > 1) setIndex(poemNumber - 1);
   });
 
   onCleanup(() => {
     stop();
 
     window.removeEventListener('keypress', keyEventListener);
+  });
+
+  createEffect(() => {
+    const poemNumber = (data()?.index ?? 0) + 1;
+    document.title = `(${poemNumber}) Goo Poem | Goo Poem`;
+    window.location.hash = `${poemNumber}`;
   });
 
   return (
