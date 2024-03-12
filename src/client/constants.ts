@@ -18,8 +18,8 @@ export const START_BUTTON_ID = "#start-button";
 export const STOP_BUTTON_ID = "#stop-button";
 
 // Log
-export const MERGE_DEBOUNCE = 1500;
 export const ACTION_DEBOUNCE = 1000;
+export const MERGE_DEBOUNCE = ACTION_DEBOUNCE * 3 / 2;
 
 // Poem
 export const CHANGE_MAX_DELAY = 1000;

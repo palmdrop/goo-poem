@@ -25,7 +25,7 @@ const getChangeRangeFromEvent = (event: ChangeEvent) => {
     } break;
     case 'remove': {
       from = event.from!;
-      to = (from + event.removed?.length!);
+      to = (from + event.removal?.length!);
       previousFrom = from;
       previousTo = to;
     } break;
@@ -140,7 +140,7 @@ const Poem: Component<ChangeEventData> = (props)=> {
             {before()}
           </span>
           <span
-            style={`--width: ${changeWidth()};`}
+            style={`--change-width: ${changeWidth()};`}
             class={`${styles.current} ${styles.change} ${animate() ? styles.fadeIn : ''}`}
           >
             {change()}

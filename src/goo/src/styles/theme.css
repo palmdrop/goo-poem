@@ -1,7 +1,7 @@
 :root {
   --width: 1000px;
   --goo-width: 100%;
-  --goo-height: 4em;
+  --goo-height: 4.5em;
 
   --margin: 0.4em;
 
@@ -18,12 +18,14 @@
   --fg: rgb(24, 23, 23);
   --accent: rgb(177, 159, 118);
 
-  --font-size: 3.5rem;
-
   --max-font-size: 3.5rem;
   --min-font-size: 1.0rem;
 
+  /*
   --font-family: Wonder;
+  */
+  --font-family: SyneMono;
+  font-weight: bold;
 
   --timing-function: cubic-bezier(0.33, 1, 0.68, 1)
 }

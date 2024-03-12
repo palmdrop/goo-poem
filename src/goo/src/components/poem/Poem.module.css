@@ -65,7 +65,7 @@
 
   color: var(--fg);
 
-  text-align: justify;
+  text-align: left;
 }
 
 .character {
@@ -96,11 +96,11 @@
 
 .change {
   width: 100px;
-  width: var(--width);
+  width: var(--change-width);
   /*
     NOTE: arbitrary max width, avoids flickering issue... will break if change width is longer than this
   */
-  max-width: 250px;
+  max-width: calc(var(--width) * 0.8);
   line-height: 1em;
 
   display: inline-block;

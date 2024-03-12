@@ -3,3 +3,9 @@
   font-family: 'Wonder';
   src: url('/fonts/wonder/WonderType-Regular.otf') format('opentype');
 }
+
+/* SYNE */
+@font-face {
+  font-family: 'SyneMono';
+  src: url('/fonts/syne/SyneMono-Regular.ttf') format('truetype');
+}

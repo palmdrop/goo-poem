@@ -24,4 +24,4 @@ dist-ssr
 *.sw?
 
 # "Database"
-data.json
+data*.json

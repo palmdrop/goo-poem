@@ -39,11 +39,13 @@
 }
 
 .orb {
-  background-color: var(--fg);
-
+  box-sizing: border-box;
   width: var(--progress-orb-size);
   height: var(--progress-orb-size);
-  border-radius: 100%;
+  /*
+  width: calc(var(--size) * var(--progress-orb-size));
+  height: calc(var(--size) * var(--progress-orb-size));
+  */
 
   transform: translate(0%, 0%);
 
@@ -53,17 +55,40 @@
 
   cursor: pointer;
 
-  transition: transform var(--delay), background-color 0.3s, box-shadow 0.3s;
+  transition: transform var(--delay);
 
-  box-shadow: 0px 0px 20px var(--accent);
-  border: 1px solid var(--fg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 2px solid var(--fg);
+  border-radius: 100%;
 }
 
-.orb:hover {
+.orb:hover .orbContents {
   background-color: var(--bg);
   box-shadow: 0px 0px 10px 10px var(--fg);
   border: 1px solid var(--accent);
 }
+
+.orbContents {
+  box-sizing: border-box;
+  background-color: var(--fg);
+
+  /*
+  width: var(--progress-orb-size);
+  height: var(--progress-orb-size);
+  */
+  width: calc(var(--size) * var(--progress-orb-size));
+  height: calc(var(--size) * var(--progress-orb-size));
+
+  box-shadow: 0px 0px 20px var(--accent);
+  border: 1px solid var(--fg);
+  border-radius: 100%;
+
+  transition: 0.3s;
+}
+
 
 .orb:last-child {
   margin-right: 0;
