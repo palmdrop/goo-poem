@@ -24,7 +24,7 @@
   /*
   --font-family: Wonder;
   */
-  --font-family: SyneMono;
+  --font-family: Wonder, SyneMono;
   font-weight: bold;
 
   --timing-function: cubic-bezier(0.33, 1, 0.68, 1)
