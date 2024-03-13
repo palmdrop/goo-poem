@@ -47,7 +47,7 @@
   text-transform: uppercase;
   font-weight: bolder;
 
-  border-bottom: 2px solid var(--fg);
+  border-bottom:  3px solid var(--fg);
   text-shadow: 
     0px 0px 1px var(--bg),
     0px 0px 8px var(--fg);
@@ -69,7 +69,7 @@
 }
 
 .section:not(:first-of-type) {
-  border-top: 2px solid var(--fg);
+  border-top:  3px solid var(--fg);
   padding-top: 0.5em;
 }
 

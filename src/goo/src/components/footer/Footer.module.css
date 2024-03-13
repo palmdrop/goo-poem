@@ -3,7 +3,7 @@
   display: flex;
   justify-content: space-between;
 
-  border-top: 2px solid var(--fg);
+  border-top:  3px solid var(--fg);
 
   margin-top: var(--margin);
   padding-top: var(--margin);
