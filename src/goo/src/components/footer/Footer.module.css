@@ -1,10 +1,9 @@
 .footer {
-  /* NOTE: why is this needed? */
   width: calc(100% - 2 * var(--margin));
   display: flex;
   justify-content: space-between;
 
-  border-top: 1px solid var(--fg);
+  border-top: 2px solid var(--fg);
 
   margin-top: var(--margin);
   padding-top: var(--margin);

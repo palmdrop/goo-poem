@@ -1,8 +1,5 @@
 * {
   box-sizing: border-box;
-  /*
-  font-size: var(--font-size);
-  */
 }
 
 .hoverable {
@@ -11,15 +8,9 @@
   transition: 0.3s;
 
   cursor: pointer;
+  text-decoration: underline var(--bg);
 }
 
 .hoverable:hover {
-  color: var(--bg);
-  text-shadow: 0px 0px 10px var(--fg);
+  text-decoration: underline var(--fg);
 }
-
-/*
-div {
-  border: 1px solid rgba(128, 128, 128, 0.33);
-}
-*/

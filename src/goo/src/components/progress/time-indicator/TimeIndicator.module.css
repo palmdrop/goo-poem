@@ -8,7 +8,8 @@
   margin-left: var(--margin);
   margin-right: var(--margin);
 
-  border-top: 1px solid var(--fg);
+  border-top: 2px solid var(--fg);
+  margin-top: 0.1em;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
 }
