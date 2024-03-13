@@ -14,7 +14,7 @@ const { log } = data;
 const App: Component = () => {
   const [data, setData] = createSignal<ChangeEventData>();
   const [isPlaying, setIsPlaying] = createSignal(true);
-  const [isInfoVisible, setIsInfoVisible] = createSignal(false);
+  const [isInfoOpen, setIsInfoOpen] = createSignal(true);
 
   const { stop, play, once, setIndex } = flowLoop(log, (action, delay, index) => {
     setData({ action, delay, index });
@@ -55,7 +55,7 @@ const App: Component = () => {
       case 'x':
       case 'Enter':
       case 'Escape': {
-        if(isInfoVisible()) setIsInfoVisible(false);
+        if(isInfoOpen()) setIsInfoOpen(false);
       } break;
       case ' ': {
         togglePlay();
@@ -87,29 +87,31 @@ const App: Component = () => {
 
   return (
     <div class={styles.root}>
-      <div class={styles.container}>
-        <Show
-          when={data()}
-          fallback={<>loading...</>}
-        >
-          <GooPoem {...data()!} />
-          <Progress 
-            delay={data()!.delay}
-            index={data()!.index} 
-            log={log} 
-            onTimestepClick={moveToTimestep}
-            onTogglePlayClick={togglePlay}
-            playing={isPlaying()}
-          />
-          <Footer 
-            onToggleInfo={() => setIsInfoVisible(infoVisible => !infoVisible)}
-          />
-          <Show 
-            when={isInfoVisible()}
+      <Info 
+        opened={isInfoOpen()}
+        onClose={() => setIsInfoOpen(false)} 
+        transitionTime={500}
+      />
+      <div class={styles.gooPoem}>
+        <div class={styles.container}>
+          <Show
+            when={data()}
+            fallback={<>loading...</>}
           >
-            <Info onClose={() => setIsInfoVisible(false)} />
+            <GooPoem {...data()!} />
+            <Progress 
+              delay={data()!.delay}
+              index={data()!.index} 
+              log={log} 
+              onTimestepClick={moveToTimestep}
+              onTogglePlayClick={togglePlay}
+              playing={isPlaying()}
+            />
+            <Footer 
+              onToggleInfo={() => setIsInfoOpen(infoVisible => !infoVisible)}
+            />
           </Show>
-        </Show>
+        </div>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  flex-direction: row;
 
   font-family: var(--font-family);
 
@@ -17,6 +17,13 @@
   font-size: clamp(var(--min-font-size), 6vw, var(--max-font-size));
 
   overflow: hidden;
+}
+
+.gooPoem {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .container {

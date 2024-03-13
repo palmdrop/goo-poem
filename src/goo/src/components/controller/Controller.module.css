@@ -14,6 +14,15 @@
   cursor: pointer;
 }
 
+.toStartButton, .toEndButton {
+  text-shadow: 0px 0px 10px var(--bg);
+  transition: 0.3s;
+}
+
+.toStartButton:hover, .toEndButton:hover {
+  text-shadow: 0px 0px 10px var(--fg);
+}
+
 .toStartButton {
   transform: scaleX(-1);
 }
