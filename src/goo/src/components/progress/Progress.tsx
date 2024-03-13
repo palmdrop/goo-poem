@@ -1,4 +1,4 @@
-import { Component, Index, createMemo } from "solid-js";
+import { Component, createMemo } from "solid-js";
 import { ChangeLog } from "../../types/poem";
 
 import styles from './Progress.module.css';
