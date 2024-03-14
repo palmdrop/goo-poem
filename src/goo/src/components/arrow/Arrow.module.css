@@ -1,0 +1,26 @@
+.arrow {
+  position: relative;
+  display: inline-block;
+  letter-spacing: -0.2em;
+  transition: 0.3s;
+
+  font-style: normal;
+
+  font-size: 0.9em;
+}
+
+.down {
+  transform: rotate(0deg);
+}
+
+.up {
+  transform: scaleY(-1)
+}
+
+.left {
+  transform: rotate(90deg);
+}
+
+.right {
+  transform: rotate(90deg) scaleY(-1);
+}

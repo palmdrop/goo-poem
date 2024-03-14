@@ -1,6 +1,7 @@
 import { Component } from "solid-js"
 import styles from './Controller.module.css';
 import { ChangeLog } from "../../types/poem";
+import { Arrow } from "../arrow/Arrow";
 
 export const Controller: Component<{ 
   log: ChangeLog,
@@ -11,11 +12,11 @@ export const Controller: Component<{
   return (
     <div class={styles.controller}>
       <button 
-        class={`${styles.controllerButton} ${styles.toStartButton}`}
+        class={`${styles.controllerButton} ${styles.jumpButton} ${styles.toStartButton}`}
         onClick={() => props.onTimestepClick(0)}
         onKeyPress={event => event.stopPropagation()}
       >
-        {"➺"}
+        <Arrow orientation="left" />
       </button>
       <button 
         class={`hoverable ${styles.controllerButton}`}
@@ -25,11 +26,11 @@ export const Controller: Component<{
         { props.playing ? 'pause' : 'play' }
       </button>
       <button 
-        class={`${styles.controllerButton} ${styles.toEndButton}`}
+        class={`${styles.controllerButton} ${styles.jumpButton} ${styles.toEndButton}`}
         onClick={() => props.onTimestepClick(props.log.length - 1)}
         onKeyPress={event => event.stopPropagation()}
       >
-        {"➺"}
+        <Arrow orientation="right" />
       </button>
     </div>
   );

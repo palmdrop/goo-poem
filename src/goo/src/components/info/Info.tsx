@@ -90,7 +90,7 @@ export const Info: Component<{
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                palmdrop ➺
+                PALMDROP !
               </a>
             </p>
             <p class={styles.paragraph}>
@@ -101,7 +101,7 @@ export const Info: Component<{
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Wonder ➺
+                WONDERTYPE !
               </a>
             </p>
           </section>
