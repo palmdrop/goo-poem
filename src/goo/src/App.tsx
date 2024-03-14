@@ -14,7 +14,7 @@ const { log } = data;
 const App: Component = () => {
   const [data, setData] = createSignal<ChangeEventData>();
   const [isPlaying, setIsPlaying] = createSignal(true);
-  const [isInfoOpen, setIsInfoOpen] = createSignal(true);
+  const [isInfoOpen, setIsInfoOpen] = createSignal(false);
 
   const { stop, play, once, setIndex } = flowLoop(log, (action, delay, index) => {
     setData({ action, delay, index });

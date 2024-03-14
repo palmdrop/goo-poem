@@ -1,6 +1,7 @@
 import { Component, Show, createEffect, createSignal, onCleanup } from "solid-js";
 
 import styles from './Info.module.css';
+import { Arrow } from "../arrow/Arrow";
 
 type TransitionState = 'open' | 'closing' | 'closed' | 'opening';
 
@@ -65,7 +66,9 @@ export const Info: Component<{
             onClick={props.onClose}
             onKeyPress={event => event.stopPropagation()}
           >
-            ❮
+            <Arrow orientation="left" />
+            <Arrow orientation="left" />
+            <Arrow orientation="left" />
           </button>
           <section class={styles.section}>
             <h1 class={styles.heading}>
