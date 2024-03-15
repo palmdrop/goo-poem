@@ -70,7 +70,6 @@
 
 .character {
   display: inline-block;
-
 }
 
 .previous {
@@ -92,6 +91,7 @@
 .line {
   position: absolute;
   width: calc(100% - 2 * var(--padding));
+  line-height: 1.1em;
 }
 
 .change {
