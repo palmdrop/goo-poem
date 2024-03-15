@@ -1,4 +1,5 @@
-import data from '../../data.json';
+// import data from '../../data.json';
+import data from '../../data-minimal.json';
 
 type ArrayElement<ArrayType extends readonly unknown[]> = 
   ArrayType extends readonly (infer ElementType)[] ? ElementType : never;

@@ -140,7 +140,7 @@ const Poem: Component<ChangeEventData> = (props)=> {
             {before()}
           </span>
           <span
-            style={`--change-width: ${changeWidth()};`}
+            style={`/*--change-width: ${changeWidth()};*/`}
             class={`${styles.current} ${styles.change} ${animate() ? styles.fadeIn : ''}`}
           >
             {change()}
