@@ -79,8 +79,8 @@ const Poem: Component<ChangeEventData> = (props)=> {
       setAnimate(false);
     }, animationTime);
 
+    setLine(newLine);
     if(index === 0) {
-      setLine(newLine);
       setBefore(newLine);
 
       setChange("");
@@ -128,7 +128,7 @@ const Poem: Component<ChangeEventData> = (props)=> {
         style={`--animation-time: ${animationTime()}ms;`}
       >
         <span 
-          class={styles.line}
+          class={`${styles.line} ${props.index === 0 ? styles.fadeIn : ''}`}
         >
           <span 
             class={styles.current}
