@@ -1,0 +1,83 @@
+{
+  "log": [
+    {
+      "type": "replace",
+      "value": "våtvaror och benbuljong i kupade händer / omfamna det som sipprar ur korroderade silverfasader",
+      "previousValue": "",
+      "removed": "",
+      "added": "våtvaror och benbuljong i kupade händer / omfamna det som sipprar ur korroderade silverfasader",
+      "previousFrom": 0,
+      "previousTo": 0,
+      "currentFrom": 0,
+      "currentTo": 94,
+      "change": true,
+      "timestamp": "2024-03-15T23:26:52.878Z"
+    },
+    {
+      "type": "replace",
+      "value": "våtvaror och benbuljong mellan flagnande fingrar / omfamna det som sipprar ur korroderade glasfasader",
+      "previousValue": "våtvaror och benbuljong i kupade händer / omfamna det som sipprar ur korroderade silverfasader",
+      "removed": "i kupade händer / omfamna det som sipprar ur korroderade silver",
+      "added": "mellan flagnande fingrar / omfamna det som sipprar ur korroderade glas",
+      "previousFrom": 24,
+      "previousTo": 87,
+      "currentFrom": 24,
+      "currentTo": 94,
+      "change": true,
+      "timestamp": "2024-03-15T23:30:09.974Z"
+    },
+    {
+      "type": "replace",
+      "value": "våtvaror och benkärnor mot våra flagnande fingertoppar / återge det som sipprar mellan oss",
+      "previousValue": "våtvaror och benbuljong mellan flagnande fingrar / omfamna det som sipprar ur korroderade glasfasader",
+      "removed": "buljong mellan flagnande fingrar / omfamna det som sipprar ur korroderade glasfasader",
+      "added": "kärnor mot våra flagnande fingertoppar / återge det som sipprar mellan oss",
+      "previousFrom": 16,
+      "previousTo": 101,
+      "currentFrom": 16,
+      "currentTo": 90,
+      "change": true,
+      "timestamp": "2024-03-15T23:31:48.203Z"
+    },
+    {
+      "type": "replace",
+      "value": "våtvaror och benkärnor mot våra flagnande fingertoppar / återvänd till det som sipprar ut bland oss",
+      "previousValue": "våtvaror och benkärnor mot våra flagnande fingertoppar / återge det som sipprar mellan oss",
+      "removed": "ge det som sipprar mellan",
+      "added": "vänd till det som sipprar ut bland",
+      "previousFrom": 61,
+      "previousTo": 86,
+      "currentFrom": 61,
+      "currentTo": 95,
+      "change": true,
+      "timestamp": "2024-03-15T23:32:21.447Z"
+    },
+    {
+      "type": "replace",
+      "value": "våtvaror och benkärnor mot våra flagnande fingertoppar / återvänd till det som flyter ut bland oss",
+      "previousValue": "våtvaror och benkärnor mot våra flagnande fingertoppar / återvänd till det som sipprar ut bland oss",
+      "removed": "sippra",
+      "added": "flyte",
+      "previousFrom": 79,
+      "previousTo": 85,
+      "currentFrom": 79,
+      "currentTo": 84,
+      "change": true,
+      "timestamp": "2024-03-15T23:44:20.793Z"
+    },
+    {
+      "type": "replace",
+      "value": "våtvaror och benkärnor mot våra flagnande fingertoppar / återvänd till det som flyter",
+      "previousValue": "våtvaror och benkärnor mot våra flagnande fingertoppar / återvänd till det som flyter ut bland oss",
+      "removed": " ut bland oss",
+      "added": "",
+      "previousFrom": 85,
+      "previousTo": 98,
+      "currentFrom": 85,
+      "currentTo": 85,
+      "change": true,
+      "timestamp": "2024-03-15T23:44:35.105Z"
+    }
+  ],
+  "value": "våtvaror och benkärnor mot våra flagnande fingertoppar / återvänd till det som flyter"
+}
