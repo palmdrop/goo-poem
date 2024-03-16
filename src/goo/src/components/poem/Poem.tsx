@@ -70,6 +70,9 @@ const Poem: Component<ChangeEventData> = (props)=> {
   createEffect(() => {
     const { action, delay, index } = props;
     const newLine = action.value;
+
+    if(newLine === line()) return;
+
     const animationTime = Math.min(delay, MAX_ANIMATION_TIME) * 0.9;
 
     setAnimate(true);
@@ -79,8 +82,8 @@ const Poem: Component<ChangeEventData> = (props)=> {
       setAnimate(false);
     }, animationTime);
 
-    setLine(newLine);
     if(index === 0) {
+      setLine(newLine);
       setBefore(newLine);
 
       setChange("");
@@ -108,7 +111,6 @@ const Poem: Component<ChangeEventData> = (props)=> {
 
     change = change.trim();
     const changeWidth = measureText(change);
-
     const overlap = line().slice(previousFrom, previousTo);
 
     setBefore(before);
@@ -118,6 +120,7 @@ const Poem: Component<ChangeEventData> = (props)=> {
     setChangeOverlap(overlap);
 
     setAfter(after);
+    setLine(newLine);
   });
 
   return (
