@@ -22,9 +22,6 @@
 
   --border: var(--border-width) solid var(--fg);
 
-  /*
-  --font-family: Wonder;
-  */
   --font-family: Wonder, SyneMono;
   font-weight: bold;
 
