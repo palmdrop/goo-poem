@@ -18,3 +18,11 @@ body {
 .hoverable:hover {
   text-decoration: underline var(--fg);
 }
+
+.hoverable-shadow {
+  text-shadow: 0px 0px 10px var(--bg);
+}
+
+.hoverable-shadow:hover {
+  text-shadow: 0px 0px 10px var(--fg);
+}

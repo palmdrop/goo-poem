@@ -12,7 +12,7 @@ export const Controller: Component<{
   return (
     <div class={styles.controller}>
       <button 
-        class={`${styles.controllerButton} ${styles.jumpButton} ${styles.toStartButton}`}
+        class={`hoverable-shadow ${styles.controllerButton} ${styles.toStartButton}`}
         onClick={() => props.onTimestepClick(0)}
         onKeyPress={event => event.stopPropagation()}
       >
@@ -26,7 +26,7 @@ export const Controller: Component<{
         { props.playing ? 'pause' : 'play' }
       </button>
       <button 
-        class={`${styles.controllerButton} ${styles.jumpButton} ${styles.toEndButton}`}
+        class={`hoverable-shadow ${styles.controllerButton} ${styles.jumpButton} ${styles.toEndButton}`}
         onClick={() => props.onTimestepClick(props.log.length - 1)}
         onKeyPress={event => event.stopPropagation()}
       >

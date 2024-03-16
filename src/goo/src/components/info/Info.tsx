@@ -62,7 +62,7 @@ export const Info: Component<{
           onClick={event => event.stopPropagation()}
         >
           <button 
-            class={styles.closeButton}
+            class={`hoverable-shadow ${styles.closeButton}`}
             onClick={props.onClose}
             onKeyPress={event => event.stopPropagation()}
           >
@@ -72,7 +72,7 @@ export const Info: Component<{
           </button>
           <section class={styles.section}>
             <h1 class={styles.heading}>
-              goo poem!
+              goo poem !
             </h1>
             <p class={styles.paragraph}>
               Telephone whisper game,

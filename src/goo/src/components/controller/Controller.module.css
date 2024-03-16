@@ -13,12 +13,3 @@
   text-align: right;
   cursor: pointer;
 }
-
-.jumpButton {
-  text-shadow: 0px 0px 10px var(--bg);
-  transition: 0.3s;
-}
-
-.jumpButton:hover {
-  text-shadow: 0px 0px 10px var(--fg);
-}

@@ -2,6 +2,7 @@
   position: relative;
   display: inline-block;
   letter-spacing: -0.2em;
+  padding-left: 0.2em;
   transition: 0.3s;
 
   font-style: normal;
