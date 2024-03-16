@@ -3,6 +3,7 @@
   --goo-width: 100%;
   --goo-height: 4.8em;
 
+  --border-width: clamp(2px, 0.6vw, 3px);
   --margin: 0.4em;
 
   --progress-width: 100%;
@@ -18,6 +19,8 @@
 
   --max-font-size: 3.5rem;
   --min-font-size: 1.0rem;
+
+  --border: var(--border-width) solid var(--fg);
 
   /*
   --font-family: Wonder;

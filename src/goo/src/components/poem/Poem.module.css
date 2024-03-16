@@ -37,9 +37,6 @@
   --padding: 0em;
   width: 100%;
 
-  /*
-  border: 4px double var(--fg);
-  */
   height: var(--goo-height);
 
   overflow: hidden;
