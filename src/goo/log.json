@@ -21,7 +21,18 @@
       "currentFrom": 1,
       "currentTo": 79,
       "timestamp": "2024-03-17T14:58:40.953Z"
+    },
+    {
+      "value": "varovurm i heta slevar / flygplan katastrofspyr över kromfasadernas myr",
+      "previousValue": "varovurm och benbuljong, soppan slutar aldrig koka / vi spyr över kromfasadernas myr",
+      "removed": "och benbuljong, soppan slutar aldrig koka / vi ",
+      "added": "i heta slevar / flygplan katastrof",
+      "previousFrom": 9,
+      "previousTo": 56,
+      "currentFrom": 9,
+      "currentTo": 43,
+      "timestamp": "2024-03-17T15:01:42.797Z"
     }
   ],
-  "value": "varovurm och benbuljong, soppan slutar aldrig koka / vi spyr över kromfasadernas myr"
+  "value": "varovurm i heta slevar / flygplan katastrofspyr över kromfasadernas myr"
 }
