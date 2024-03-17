@@ -10,29 +10,19 @@ const getChangeRangeFromEvent = (event: ChangeEvent) => {
   let to: number;
   let previousFrom: number; 
   let previousTo: number;
+
+  from = event.currentFrom!;
+  to = event.currentTo!;
+  previousFrom = event.previousFrom!;
+  previousTo = event.previousTo!;
+  /*
   switch(event?.type) {
-    /*
-    case 'add': {
-      from = event.from!;
-      to = event.from! + event.addition?.length!;
-      previousFrom = from;
-      previousTo = to;
-    } break;
-    */
     case 'replace': {
       from = event.currentFrom!;
       to = event.currentTo!;
       previousFrom = event.previousFrom!;
       previousTo = event.previousTo!;
     } break;
-    /*
-    case 'remove': {
-      from = event.from!;
-      to = (from + event.removal?.length!);
-      previousFrom = from;
-      previousTo = to;
-    } break;
-    */
     default: {
       from = 0; 
       to = event.value.length; 
@@ -40,6 +30,7 @@ const getChangeRangeFromEvent = (event: ChangeEvent) => {
       previousTo = to;
     }
   }
+  */
 
   return {
     from,

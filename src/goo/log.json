@@ -1,7 +1,6 @@
 {
   "log": [
     {
-      "type": "replace",
       "value": "våtvaror och benbuljong i kupade händer / vi hamstrar i deras silverfasaders myr",
       "previousValue": "",
       "removed": "",
@@ -10,11 +9,9 @@
       "previousTo": 0,
       "currentFrom": 0,
       "currentTo": 80,
-      "change": true,
-      "timestamp": "2024-03-17T11:45:39.933Z"
+      "timestamp": "2024-03-17T13:24:45.385Z"
     },
     {
-      "type": "replace",
       "value": "varovurm och benbuljong, soppan slutar aldrig koka / vi spyr över kromfasadernas myr",
       "previousValue": "våtvaror och benbuljong i kupade händer / vi hamstrar i deras silverfasaders myr",
       "removed": "åtvaror och benbuljong i kupade händer / vi hamstrar i deras silverfasader",
@@ -23,8 +20,7 @@
       "previousTo": 75,
       "currentFrom": 1,
       "currentTo": 79,
-      "change": true,
-      "timestamp": "2024-03-17T11:50:33.162Z"
+      "timestamp": "2024-03-17T14:58:40.953Z"
     }
   ],
   "value": "varovurm och benbuljong, soppan slutar aldrig koka / vi spyr över kromfasadernas myr"

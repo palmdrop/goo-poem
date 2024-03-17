@@ -4,12 +4,14 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "bash ./scripts/start.sh",
+    "dev": "bash ./src/scripts/start.sh",
     "dev:client": "vite",
     "dev:server": "nodemon --watch 'src/server/**/*' -e ts --exec tsx ./src/server/index.ts",
+    "dev2:server": "nodemon --watch 'src/data.md' -e ts --exec tsx ./src/scripts/build-log.ts",
     "goo": "npm run dev --prefix ./src/goo/",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "add": "tsx ./src/scripts/add-line.ts"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

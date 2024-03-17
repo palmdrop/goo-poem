@@ -1,6 +1,7 @@
 import { onCleanup, type Component, createSignal, Show, onMount, createEffect } from 'solid-js';
 // import data from '../data.json';
-import data from '../data-minimal.json';
+// import data from '../data-minimal.json';
+import data from '../log.json';
 import GooPoem from './components/poem/Poem';
 import { flowLoop, getDelay } from './core/flow';
 import { ChangeEventData } from './types/poem';
