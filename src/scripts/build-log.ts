@@ -1,5 +1,5 @@
 import fs from 'fs/promises';
-import { DATA_FILE, LOG_FILE } from '../constants';
+import { DATA_FILE, DATE_END_INDEX, LOG_FILE, POEM_START_INDEX } from '../constants';
 
 const readData = async () => {
   return await fs.readFile(DATA_FILE, 'utf8');
@@ -9,7 +9,7 @@ const parseData = (data: string): [string, string][] => {
   return data
     .split('\n')
     .filter(Boolean)
-    .map(line => ([line.slice(0, 24), line.slice(26)]));
+    .map(line => ([line.slice(0, DATE_END_INDEX), line.slice(POEM_START_INDEX)]));
 }
 
 const buildEvent = (line: [string, string], previousLine?: [string, string]) => {
