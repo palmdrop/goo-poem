@@ -1,6 +1,4 @@
 import { onCleanup, type Component, createSignal, Show, onMount, createEffect } from 'solid-js';
-// import data from '../data.json';
-// import data from '../data-minimal.json';
 import data from './log.json';
 import GooPoem from './components/poem/Poem';
 import { flowLoop, getDelay } from './core/flow';
@@ -11,10 +9,7 @@ import styles from './App.module.css';
 import { Footer } from './components/footer/Footer';
 import { Info } from './components/info/Info';
 
-const { log: rawLog } = data;
-
-// NOTE: Experimental filter, may cause some animations to behave strangely.
-const log = rawLog.filter((_, i) => getDelay(rawLog, i) > 1700);
+const { log } = data;
 
 const App: Component = () => {
   const [data, setData] = createSignal<ChangeEventData>();
