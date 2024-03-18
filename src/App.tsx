@@ -1,13 +1,13 @@
 import { onCleanup, type Component, createSignal, Show, onMount, createEffect } from 'solid-js';
 import data from './log.json';
 import GooPoem from './components/poem/Poem';
-import { flowLoop, getDelay } from './core/flow';
+import { flowLoop } from './core/flow';
 import { ChangeEventData } from './types/poem';
 import { Progress } from './components/progress/Progress';
-
-import styles from './App.module.css';
 import { Footer } from './components/footer/Footer';
 import { Info } from './components/info/Info';
+
+import styles from './App.module.css';
 
 const { log } = data;
 
@@ -16,9 +16,17 @@ const App: Component = () => {
   const [isPlaying, setIsPlaying] = createSignal(true);
   const [isInfoOpen, setIsInfoOpen] = createSignal(false);
 
-  const { stop, play, once, setIndex } = flowLoop(log, (action, delay, index) => {
-    setData({ action, delay, index });
-  });
+  const { 
+    stop, 
+    play, 
+    once, 
+    setIndex 
+  } = flowLoop(
+    log, 
+    (action, delay, index) => {
+      setData({ action, delay, index });
+    }
+  );
 
   const moveToTimestep = (index: number) => {
     setIndex(index);
