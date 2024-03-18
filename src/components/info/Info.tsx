@@ -110,6 +110,8 @@ export const Info: Component<{
               <a
                 href="https://gitlab.com/bonjour-monde/fonderie/syne-typeface"
                 class={`hoverable ${styles.link} ${styles.alternativeLink}`}
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 (and Syne Mono)
               </a>
