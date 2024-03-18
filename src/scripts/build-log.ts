@@ -66,7 +66,6 @@ const buildEvent = (line: [string, string], previousLine?: [string, string]) => 
     currentTo,
     timestamp,
   } 
-
 }
 
 const buildLog = (lines: [string, string][]) => {

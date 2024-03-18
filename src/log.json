@@ -1,10 +1,10 @@
 {
   "log": [
     {
-      "value": "våtvaror och benbuljong i kupade händer / vi hamstrar i deras silverfasaders myr",
+      "value": "våtvaror och benbuljong i kupade händer / här hamstrar vi i silverfasadernas myr",
       "previousValue": "",
       "removed": "",
-      "added": "våtvaror och benbuljong i kupade händer / vi hamstrar i deras silverfasaders myr",
+      "added": "våtvaror och benbuljong i kupade händer / här hamstrar vi i silverfasadernas myr",
       "previousFrom": 0,
       "previousTo": 0,
       "currentFrom": 0,
@@ -12,38 +12,38 @@
       "timestamp": "2024-03-17T13:24:45.385Z"
     },
     {
-      "value": "varovurm och benbuljong, soppa som aldrig slutar koka / vår uppkastning över kromfasadernas myr",
-      "previousValue": "våtvaror och benbuljong i kupade händer / vi hamstrar i deras silverfasaders myr",
-      "removed": "åtvaror och benbuljong i kupade händer / vi hamstrar i deras silverfasader",
-      "added": "arovurm och benbuljong, soppa som aldrig slutar koka / vår uppkastning över kromfasaderna",
+      "value": "varovurm och benbuljong / denna soppa slutar aldrig koka / smaka vår uppkastning i kromfasadernas myr",
+      "previousValue": "våtvaror och benbuljong i kupade händer / här hamstrar vi i silverfasadernas myr",
+      "removed": "åtvaror och benbuljong i kupade händer / här hamstrar vi i silver",
+      "added": "arovurm och benbuljong / denna soppa slutar aldrig koka / smaka vår uppkastning i krom",
       "previousFrom": 1,
-      "previousTo": 75,
+      "previousTo": 66,
       "currentFrom": 1,
-      "currentTo": 90,
+      "currentTo": 87,
       "timestamp": "2024-03-17T14:58:40.953Z"
     },
     {
-      "value": "varovurm i heta slevar / kapade drönare kaskadspyr över kromfasadernas myr",
-      "previousValue": "varovurm och benbuljong, soppa som aldrig slutar koka / vår uppkastning över kromfasadernas myr",
-      "removed": "och benbuljong, soppa som aldrig slutar koka / vår uppkastning",
-      "added": "i heta slevar / kapade drönare kaskadspyr",
+      "value": "varovurm i heta slevar / kapade drönare som kaskadspyr över kromfasadernas myr",
+      "previousValue": "varovurm och benbuljong / denna soppa slutar aldrig koka / smaka vår uppkastning i kromfasadernas myr",
+      "removed": "och benbuljong / denna soppa slutar aldrig koka / smaka vår uppkastning i",
+      "added": "i heta slevar / kapade drönare som kaskadspyr över",
       "previousFrom": 9,
-      "previousTo": 71,
+      "previousTo": 82,
       "currentFrom": 9,
-      "currentTo": 50,
+      "currentTo": 59,
       "timestamp": "2024-03-17T15:01:42.797Z"
     },
     {
-      "value": "monoliternas glödheta yta / våra drönares cirkeldans förbereder nakenfotad mosse",
-      "previousValue": "varovurm i heta slevar / kapade drönare kaskadspyr över kromfasadernas myr",
-      "removed": "varovurm i heta slevar / kapade drönare kaskadspyr över kromfasadernas myr",
-      "added": "monoliternas glödheta yta / våra drönares cirkeldans förbereder nakenfotad mosse",
+      "value": "monoliternas glödheta krom / våra drönares cirkeldans förbereder denna nakenfotade mosse",
+      "previousValue": "varovurm i heta slevar / kapade drönare som kaskadspyr över kromfasadernas myr",
+      "removed": "varovurm i heta slevar / kapade drönare som kaskadspyr över kromfasadernas myr",
+      "added": "monoliternas glödheta krom / våra drönares cirkeldans förbereder denna nakenfotade mosse",
       "previousFrom": 0,
-      "previousTo": 74,
+      "previousTo": 78,
       "currentFrom": 0,
-      "currentTo": 80,
+      "currentTo": 88,
       "timestamp": "2024-03-18T15:32:28.375Z"
     }
   ],
-  "value": "monoliternas glödheta yta / våra drönares cirkeldans förbereder nakenfotad mosse"
+  "value": "monoliternas glödheta krom / våra drönares cirkeldans förbereder denna nakenfotade mosse"
 }

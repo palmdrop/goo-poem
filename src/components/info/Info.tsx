@@ -72,16 +72,16 @@ export const Info: Component<{
           </button>
           <section class={styles.section}>
             <h1 class={styles.heading}>
-              goo poem !
+              goo poem (?)
             </h1>
             <p class={styles.paragraph}>
               Telephone whisper game,
             </p>
             <p class={styles.paragraph}>
-              placid association chain,
+              a placid association chain,
             </p>
             <p class={styles.paragraph}>
-              evergreen web experiment.
+              or evergreen web experiment.
             </p>
           </section>
           <section class={styles.section}>
@@ -105,6 +105,13 @@ export const Info: Component<{
                 rel="noopener noreferrer"
               >
                 WONDERTYPE !
+              </a>
+              <br />
+              <a
+                href="https://gitlab.com/bonjour-monde/fonderie/syne-typeface"
+                class={`hoverable ${styles.link} ${styles.alternativeLink}`}
+              >
+                (and Syne Mono)
               </a>
             </p>
           </section>
