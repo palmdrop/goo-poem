@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "log:watch": "nodemon --watch 'src/data.md' -e ts --exec tsx ./src/scripts/build-log.ts",
-    "build": "tsc && vite build",
+    "build": "vite build",
     "preview": "vite preview",
     "add": "tsx ./src/scripts/add-line.ts"
   },
