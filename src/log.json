@@ -54,7 +54,18 @@
       "currentFrom": 8,
       "currentTo": 76,
       "timestamp": "2024-03-19T13:33:39.930Z"
+    },
+    {
+      "value": "snavar du i snår av törnspolar och koppartråd? / släng av skorna, klampa på mot avfallet",
+      "previousValue": "skavsår vid berg och grus av krom / av med skorna tugga kretskort och avfall",
+      "removed": "kavsår vid berg och grus av krom / av med skorna tugga kretskort och avfall",
+      "added": "navar du i snår av törnspolar och koppartråd? / släng av skorna, klampa på mot avfallet",
+      "previousFrom": 1,
+      "previousTo": 76,
+      "currentFrom": 1,
+      "currentTo": 88,
+      "timestamp": "2024-03-20T15:20:32.274Z"
     }
   ],
-  "value": "skavsår vid berg och grus av krom / av med skorna tugga kretskort och avfall"
+  "value": "snavar du i snår av törnspolar och koppartråd? / släng av skorna, klampa på mot avfallet"
 }
