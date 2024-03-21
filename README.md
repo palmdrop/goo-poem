@@ -1,4 +1,5 @@
 # GOO POEM
+*[Live at palmdrop.github.io](https://palmdrop.github.io/goo-poem/)*
 
 An experimental poetry/design/narrative project. 
 
