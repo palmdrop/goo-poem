@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "log:watch": "nodemon --watch 'src/data.md' -e ts --exec tsx ./src/scripts/build-log.ts",
+    "log:watch": "nodemon --watch 'poem.md' -e ts --exec tsx ./src/scripts/build-log.ts",
     "build": "vite build",
     "preview": "vite preview",
     "add": "tsx ./src/scripts/add-line.ts"

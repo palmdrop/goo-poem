@@ -1,4 +1,4 @@
-export const DATA_FILE = './src/data.md';
+export const DATA_FILE = './poem.md';
 export const LOG_FILE = './src/log.json';
 
 export const DATE_END_INDEX = 24;
