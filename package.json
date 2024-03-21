@@ -5,10 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "log:watch": "nodemon --watch 'poem.md' -e ts --exec tsx ./src/scripts/build-log.ts",
-    "build": "vite build",
+    "build-log": "tsx ./src/scripts/build-log.ts",
+    "build-log:watch": "nodemon --watch 'poem.md' -e ts --exec npm run build-log",
+    "build": "npm run build-log && vite build",
     "preview": "vite preview",
-    "add": "tsx ./src/scripts/add-line.ts"
+    "add": "tsx ./src/scripts/add-line.ts",
+    "postinstall": "npm run build-log"
   },
   "devDependencies": {
     "ts-node": "^10.9.2",
