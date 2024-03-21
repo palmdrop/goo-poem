@@ -10,6 +10,9 @@ License is specified in `LICENSE.md`. Please note that the code and poem are cov
 ## Credits
 Credit where credit is due...
 
+### Tools
+* [SolidJS](https://www.solidjs.com/)
+
 ### Fonts
 * [WonderType](https://www.clemencefontaine.fr/page/wonder.html)
 * [Syne Mono](https://gitlab.com/bonjour-monde/fonderie/syne-typeface)
