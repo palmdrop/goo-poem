@@ -92,14 +92,5 @@
 }
 
 .change {
-  /*
-    NOTE: arbitrary max width, avoids flickering issue... will break if change width is longer than this
-  width: 100px;
-  width: var(--change-width);
-  max-width: calc(var(--width) * 0.8);
-  display: inline-block;
-  white-space: nowrap;
-  */
-
   transition: width var(--animation-time) var(--timing-function);
 }
