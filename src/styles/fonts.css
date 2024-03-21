@@ -1,13 +1,13 @@
 /* WONDER */
 @font-face {
   font-family: 'Wonder';
-  src: url('/fonts/wonder/WonderType-Regular.otf') format('opentype');
+  src: url('./fonts/wonder/WonderType-Regular.otf') format('opentype');
   unicode-range: U+00-E4;
 }
 
 /* SYNE */
 @font-face {
   font-family: 'SyneMono';
-  src: url('/fonts/syne/SyneMono-Regular.ttf') format('truetype');
+  src: url('./fonts/syne/SyneMono-Regular.ttf') format('truetype');
   size-adjust: 95%;
 }
