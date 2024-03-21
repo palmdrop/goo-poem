@@ -4,6 +4,9 @@ An experimental poetry/design/narrative project.
 
 So far, there's only a swedish version of the poem. Might make an english version at some point.
 
+# License
+License is specified in `LICENSE.md`. Please note that the code and poem are covered by different licenses.
+
 # Credits
 Credit where credit is due...
 
