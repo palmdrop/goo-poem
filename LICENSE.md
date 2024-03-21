@@ -1,4 +1,17 @@
-MIT License
+# Poem
+The file containing the actual poem, located in `poem.md` is directly copyrighted to Anton Hildingsson (palmdrop). All rights reserved.
+
+# Fonts
+The fonts located in `public/fonts` are redistributed under their respective licenses:
+
+* WonderType is available under free license [as stated by the authors.](https://www.clemencefontaine.fr/page/wonder.html)
+
+* Syne Mono is available under open-source license [as stated by the authors.](https://gitlab.com/bonjour-monde/fonderie/syne-typeface) 
+
+# Code
+All the code is licensed under MIT license. See below.
+
+## MIT License
 
 Copyright (c) 2024 Anton Hildingsson
 
