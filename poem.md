@@ -4,4 +4,5 @@
 2024-03-18T15:32:28.375Z: skavsår mot monoliternas glödande krom / här förbereder våra drönares en nakenfotad mosse
 2024-03-19T13:33:39.930Z: skavsår vid berg och grus av krom / av med skorna tugga kretskort och avfall
 2024-03-20T15:20:32.274Z: snavar du i snår av törnspolar och koppartråd? / släng av skorna, klampa vidare mot avfall
-2024-03-21T15:58:44.851Z: snavar du slackar du kärnar du ditt hjärnsmör? / dumpa alla skor och delta i ett avfall
+2024-03-21T15:58:44.851Z: snavar du slackar du kärnar du hjärnsmör? / dumpa alla skor och delta i avfallet
+2024-03-23T21:31:11.322Z: slappa ålar vi oss i en egenkärnad massa / sliskiga slyngel, fall av med mig 
