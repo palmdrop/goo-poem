@@ -4,8 +4,8 @@ export const LOG_FILE = './src/log.json';
 export const DATE_END_INDEX = 24;
 export const POEM_START_INDEX = DATE_END_INDEX + 2;
 
-export const MIN_CHANGE_DELAY = 1000;
-export const MAX_CHANGE_DELAY = 2500;
+export const MIN_CHANGE_DELAY = 1500;
+export const MAX_CHANGE_DELAY = 3500;
 
 export const DELAY_CONTRAST_THRESHOLD = 0.9;
 export const SHORT_DELAY_CONTRAST = 3;
