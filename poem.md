@@ -8,4 +8,5 @@
 2024-03-23T21:31:11.322Z: slappa ålar vi oss geneom egenkärnad massa / sliskiga slyngel, fall av med mig 
 2024-03-28T10:46:55.607Z: slappa i pölar, i parkeringsplatsens pooler / grodyngel ni glöder och sjunker med mig
 2024-03-29T11:30:44.212Z: slacka i kalksten, sjunk till en avslappnad fossil / som byggsten res dig polerad svart och hög
-2024-03-30T16:41:51.007Z: hon smaskar glupskt varje black box, i magsaft upplöst / smaken är hennes, som en ljung gör henne hög
+2024-03-30T16:41:51.007Z: hon smaskar glupskt varje black box, löser upp i magsaft / smaken är hennes, ljung som gör henne hög
+2024-04-02T15:25:06.490Z: hon halar oss in med allt på sin tunga / vattnet är spetsat jag smakar ljung i hennes hjärnbalk
