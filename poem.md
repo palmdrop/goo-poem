@@ -11,4 +11,5 @@
 2024-03-30T16:41:51.007Z: hon smaskar glupskt varje black box, löser upp i magsaft / smaken är hennes, ljung som gör henne hög
 2024-04-02T15:25:06.490Z: hon halar oss in med allt på sin tunga / vattnet är spetsat, jag smakar ljung på hennes hjärnbalk
 2024-04-03T14:07:29.299Z: hon skalar av allt där du ser din kropp / på alla fyra utbredd med spindelhjärna och kalejdoskopögon
-2024-04-07T14:08:12.809Z: hon halkar och skaver, det är en råttkung i min kropp / vräk mig, ut på gatan med vildvuxna spindelben
+2024-04-07T14:08:12.809Z: hon halkar och skaver, det är en råttkung i min kropp / vräk mig ut på gatan med utbredda spindelben
+2024-04-09T08:13:44.590Z: jag glider ner i diskhon och släpper alla råttor fria / sjunker men stiger sen på tusen gnagarben
