@@ -14,3 +14,4 @@
 2024-04-07T14:08:12.809Z: hon halkar och skaver, det är en råttkung i min kropp / vräk mig ut på gatan med utbredda spindelben
 2024-04-09T08:13:44.590Z: jag glider ner i diskhon och släpper alla råttor fria / sjunker och stiger sen på tusentals gnagarben
 2024-04-12T20:00:28.012Z: jagar en hårresande glätta, hur frigör jag den / som stiger inför er med sprudlande dumhet
+2024-04-13T10:11:47.895Z: flisor och hårtestar, jag ömsar  mitt fnasiga skinn / där porernas stig leder till ljummen dermis
