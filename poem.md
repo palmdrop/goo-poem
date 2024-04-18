@@ -15,4 +15,5 @@
 2024-04-09T08:13:44.590Z: jag glider ner i diskhon och släpper alla råttor fria / sjunker och stiger sen på tusentals gnagarben
 2024-04-12T20:00:28.012Z: jagar en hårresande glätta, hur frigör jag den / som stiger inför er med sprudlande dumhet
 2024-04-13T10:11:47.895Z: flisor och hårtestar, jag ömsar mitt fnasiga skinn / stigen bland porerna leder till ljummen dermis
-2024-04-16T11:37:39.384Z: flåsa och ryck, så ömsas nästa skinnpåsedvala / klarvaken på stigen bort från ljuddämpade pälsgrottor
+2024-04-16T11:37:39.384Z: flåsa och ryck och ömsa nästa skinndvala / klarvaken på vägen bort från ljuddämpade pälsgrottor
+2024-04-18T16:00:41.970Z: flåsande skärmvetare reser sin ragg / vakna och kontorsbundna river de upp alla heltäckningsgrottor
