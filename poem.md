@@ -22,3 +22,4 @@
 2024-05-11T17:10:33.539Z: solblåsorna skimrar och spricker, jag smetar vätskan i ditt förjävliga ansikte / du smakar slisk
 2024-05-19T13:29:15.906Z: solens efterglöd får ansiktet att osa / vi andas in, ser inget som i en spegel, allt minns vi fel
 2024-05-22T10:34:06.831Z: solandet på klippbäddens lav suger upp all tid / i molnen hägrar spegelar och framtidsminnen
+2024-05-29T11:26:27.308Z: stekandet i nya solglasögon får klipporna att utsöndra stil och ro / ligg kvar in i cool framtid
